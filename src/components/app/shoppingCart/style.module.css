@@ -1,0 +1,30 @@
+.cart_container {
+    position: relative;
+    transition: 0.3s;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.cart_quantity {
+    background-color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    position: absolute;
+    top: -0.4375em;
+    right: -0.4375em;
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1em;
+    }
+}

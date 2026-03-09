@@ -1,0 +1,120 @@
+header {
+  padding-inline: 5em;
+  box-shadow: 0 0 5px var(--color-neutral-dark-gray);
+  position: sticky;
+  height: 4.5em;
+  
+  top: 0;
+}
+.wrapper,
+.other_screens {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.logo {
+  color: var(--color-primary);
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+.header_links {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+}
+.header_links li a {
+  color: var(--color-neutral-dark-gray);
+  font-size: 1.1em;
+  transition: 0.3s;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.header_links li a:hover {
+  color: #232323;
+}
+.header_btns {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  a {
+    padding-inline: 1em;
+    padding-block: 0.5em;
+    border-radius: 1em;
+    cursor: pointer;
+    
+    transition: 0.3s;
+  }
+  a:first-child {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  a:first-child:hover {
+    background-color: white;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    transform: scale(1.1);
+  }
+  a:last-of-type {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  a:last-of-type:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--color-primary);
+    transition: all 0.35s;
+    z-index: -1;
+  }
+  a:last-of-type:hover {
+    color: white;
+    transform: scale(1.1);
+  }
+  a:last-of-type:hover:after {
+    width: 100%;
+  }
+  
+}
+.other_screens {
+  display: none;
+  
+}
+@media (max-width : 992px) {
+  .other_screens {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+    .drop_down_menu {
+      .drop_down_icon {
+        cursor: pointer;
+        background-color: var(--color-primary);
+        color: white;
+        padding: 0.3em;
+        border-radius: 4px;
+        transition: 0.3s;
+        backdrop-filter: blur(10px);
+      }
+      .drop_down_icon:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  .wrapper {
+    display: none;
+  }
+}
