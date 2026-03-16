@@ -1,22 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import "tailwindcss";
+
 :root {
   /* Primary Color */
   --color-primary: #1D3557; /* Navy Blue - main brand color */
 
-  /* Secondary Colors */
-  --color-secondary-pink: #FFC0CB; /* Pastel Pink - women & babies highlights */
-  --color-secondary-yellow: #FFD166; /* Yellow - kids & call-to-action */
-  --color-secondary-mint: #A8D5BA; /* Mint Green - accents & hover */
-
-  /* Neutral Colors */
-  --color-neutral-white: #FFFFFF; /* Background main */
+  --color-secondary : #64748B;
   --color-neutral-light-gray: #F5F5F5; /* Sections background / cards */
   --color-neutral-dark-gray: #555555; /* Text secondary / footer */
 }
 body {
-  font-family: "Poppins";
+  font-family: "Plus Jakarta Sans";
+
 }
+
 @media(max-width : 1250px) {
   body {
     font-size: 16px;
