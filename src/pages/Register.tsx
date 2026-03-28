@@ -1,11 +1,12 @@
-import React from "react";
 import { ShoppingBag } from "lucide-react";
 import RegisterForm from "../components/forms/RegisterForm/RegisterForm";
+
 const Register = () => {
   return (
-    <main className="flex! items-center justify-center w-full min-h-screen  ">
-      <div className="flex rounded-[1em] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] w-[80%]">
-        <div className="bg-[var(--color-primary)] p-[3em] w-[50%]">
+    <main className="md:flex! md:items-center md:justify-center w-full min-h-screen">
+      <div className="flex rounded-none md:rounded-[1em] overflow-hidden md:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] md:w-[85%] lg:w-[75%] xl:w-[65%] w-full max-md:min-h-screen">
+        {/* Left navy panel - hidden below md */}
+        <div className="bg-[var(--color-primary)] p-[2.4em] w-[50%] max-md:hidden flex flex-col justify-center">
           <div className="icon w-[3.5em] h-[3.5em] bg-white/5 flex items-center justify-center rounded-[0.75em] mb-[2em]">
             <ShoppingBag color="white" size={24} />
           </div>
@@ -19,7 +20,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-        <RegisterForm/>
+        <RegisterForm />
       </div>
     </main>
   );

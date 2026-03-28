@@ -16,7 +16,7 @@ export default function Footer() {
         {/* Brand Column */}
         <motion.div variants={itemVariants}>
           <h2 className= {styled.logo}>
-            FAMILY FOLD
+            WearAll
           </h2>
           <p className={styled.bio}>
             Curated fashion for those who believe style is a form of self-expression.
@@ -91,7 +91,7 @@ export default function Footer() {
         className= {styled.bottom_bar}
       >
         <p style={{ margin: 0, color: "rgba(245,245,245,0.3)", fontSize: 12 }}>
-          © 2025 FAMILY FOLD. All rights reserved.
+          © 2025 WearAll. All rights reserved.
         </p>
         <div style={{ display: "flex", gap: 20 }}>
           {["Privacy Policy", "Terms of Service", "Cookie Settings"].map((item) => (

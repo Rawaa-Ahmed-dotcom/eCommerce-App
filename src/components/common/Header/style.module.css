@@ -32,10 +32,15 @@ header {
   display: block;
   overflow: hidden;
 }
+.header_links li a.active {
+  color: white;    
+  background: var(--color-primary);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 500;
 
-.header_links li a:hover {
-  color: #232323;
 }
+
 .header_btns {
   display: flex;
   align-items: center;

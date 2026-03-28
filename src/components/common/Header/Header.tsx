@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "./style.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ShoppingCartCom from "../../app/shoppingCart/ShoppingCart";
 import DropdownMenu from "../../app/DropDownMenu/DropdownMenu";
 import { Menu } from "lucide-react";
@@ -12,20 +12,20 @@ const Header = () => {
     <header>
       <div className={styled.wrapper}>
         <Link to="/">
-          <h1 className={styled.logo}>FamilyFold </h1>
+          <h1 className={styled.logo}>WearAll </h1>
         </Link>
         <ul className={styled.header_links}>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/" className={({isActive}) => isActive ? styled.active : ""}>Home</NavLink>
           </li>
           <li>
-            <Link to="/shop">Shop</Link>
+            <NavLink to="/shop" className={({isActive}) => isActive ? styled.active : ""}>Shop</NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink to="/about" className={({isActive}) => isActive ? styled.active : ""}>About</NavLink>
           </li>
           <li>
-            <Link to="/contact">contact</Link>
+            <NavLink to="/contact" className={({isActive}) => isActive ? styled.active : ""}>contact</NavLink>
           </li>
         </ul>
         <div className={styled.header_btns}>
