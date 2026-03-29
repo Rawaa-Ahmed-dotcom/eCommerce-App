@@ -7,11 +7,13 @@ import About from "../pages/About";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Error from "../pages/Error";
-
+import AllProducts from "../components/app/Shop/AllProducts/AllProducts";
+import SingleCategory from "../components/app/Shop/SingleCategory/SingleCategory";
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement : <Error/>,
     children: [
       {
         index: true,
@@ -20,6 +22,24 @@ export const router = createBrowserRouter([
       {
         path: "shop",
         element: <Shop />,
+        children : [
+          {
+            index : true,
+            element : <AllProducts />
+          },
+          {
+            path : ":category",
+            element : <SingleCategory/>,
+            loader : ({params}) => {
+              if(typeof params.category !== "string" || !/^[a-z]+$/.test(params.category)) {
+                throw new Response("Bad Request",{
+                  statusText : "Category not found",
+                  status : 400
+                })
+              }
+            }
+          }
+        ]
       },
 
       {
@@ -39,9 +59,5 @@ export const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />
-  },
-  {
-    path: "*",
-    element: <Error />,
-  },
+  }
 ]);

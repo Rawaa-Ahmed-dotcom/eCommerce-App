@@ -4,8 +4,7 @@ import {
   overlayVariants,
   sidebarVariants,
   headerVariants,
-  itemVariants,
-  menuItems,
+  itemVariants
 } from "../../../utils/menuAnimation";
 import styled from "./style.module.css";
 import { Link } from "react-router-dom";
@@ -13,9 +12,11 @@ import { Link } from "react-router-dom";
 export default function DropDownMenu({
   menuOpen,
   setMenuOpen,
+  menuItems
 }: {
   menuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  menuItems: { icon: React.ReactNode; label: string; path: string }[];
 }) {
   const MotionNavLink = motion(Link);
   const [active, setActive] = useState("Home");
@@ -49,7 +50,7 @@ export default function DropDownMenu({
               <h2>Main Menu</h2>
             </div>
 
-            {/* زرار الإغلاق */}
+           
             <motion.button
               onClick={() => setMenuOpen(false)}
               whileHover={{
@@ -64,7 +65,7 @@ export default function DropDownMenu({
             </motion.button>
           </motion.div>
 
-          {/* Menu Items */}
+         
           <nav style={{ padding: "16px 12px", flex: 1 }}>
             {menuItems.map((item) => (
               <MotionNavLink
@@ -75,7 +76,7 @@ export default function DropDownMenu({
                   setActive(item.label);
                   setMenuOpen(false);
                 }}
-                /* hover: درجة أفتح من #1D3557 */
+                
                 whileHover={{
                   x: 6,
                   backgroundColor: "#254a73",

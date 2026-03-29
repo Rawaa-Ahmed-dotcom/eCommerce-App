@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import ShoppingCartCom from "../../app/shoppingCart/ShoppingCart";
 import DropdownMenu from "../../app/DropDownMenu/DropdownMenu";
 import { Menu } from "lucide-react";
-
+import { menuItems } from "../../../utils/menuAnimation";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -40,7 +40,7 @@ const Header = () => {
             <div className={styled.drop_down_icon}>
               <Menu onClick={() => setMenuOpen(true)} size={24}/>
             </div>
-            <DropdownMenu setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
+            <DropdownMenu setMenuOpen={setMenuOpen} menuOpen={menuOpen} menuItems={menuItems}/>
           </div>
           <Link to="/">
             <h1 className={styled.logo}>FamilyFold </h1>

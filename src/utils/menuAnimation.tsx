@@ -1,4 +1,4 @@
-import { House, Store, BadgeInfo, Mail, LogIn ,IdCard} from "lucide-react";
+import { House, Store, BadgeInfo, Mail, LogIn, IdCard ,Mars,Venus,Blocks} from "lucide-react";
 export const menuItems = [
   { icon: <House color="#F5F5F5" size={24} />, label: "Home", path: "/" },
   { icon: <Store color="#F5F5F5" size={24} />, label: "Shop", path: "/shop" },
@@ -13,14 +13,14 @@ export const menuItems = [
     path: "/contact",
   },
   {
-    icon : <LogIn color="#F5F5F5" size={24}/>,
-    label : "Login",
-    path : "/login"
+    icon: <LogIn color="#F5F5F5" size={24} />,
+    label: "Login",
+    path: "/login"
   },
   {
-    icon : <IdCard color="#F5F5F5" size={24}/>,
-    label : "Register",
-    Path : "/register"
+    icon: <IdCard color="#F5F5F5" size={24} />,
+    label: "Register",
+    Path: "/register"
   }
 ];
 
