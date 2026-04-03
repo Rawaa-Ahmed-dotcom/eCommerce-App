@@ -1,16 +1,16 @@
 import Footer from "../../components/common/Footer/Footer";
 import Header from "../../components/common/Header/Header";
-import styled from "./style.module.css";
+
 import { Outlet } from "react-router-dom";
 const MainLayout = () => {
   return (
-    <main className= {styled.container}>
-       <section className={styled.wrapper}>
-            <Header/>
-            <Outlet/>
+    <div className="min-h-screen w-full flex flex-col">
+        <Header/>
+            <main className="grow flex-1">
+              <Outlet/>
+            </main>
             <Footer/>
-       </section>
-    </main>
+    </div>
   )
 }
 

@@ -1,0 +1,33 @@
+.main {
+    padding-block: 0.75em;
+    padding-inline: 1.5em;
+}
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+nav ul li a{
+    padding-block: 0.375em;
+    padding-inline: 1em;
+    text-transform: uppercase;
+    font-size: 0.875em;
+    color: var(--color-primary);
+    transition: 0.3s;
+    border-radius: 0.375em;
+}
+nav ul li a.activeLink {
+    background-color: var(--color-primary);
+    color: white;
+    
+
+}
+@media (max-width : 992px) {
+    nav ul {
+        justify-content: center;
+    }
+    main nav{
+        padding-block: 1em;
+    }
+}

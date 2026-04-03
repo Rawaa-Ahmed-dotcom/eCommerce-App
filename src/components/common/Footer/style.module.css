@@ -3,6 +3,10 @@
   color: #f5f5f5;
   padding: 3.75em 0 0 0;
   border-top: 1px solid rgba(245, 245, 245, 0.08);
+  /* position: sticky;
+  bottom: 0;
+  right: 0;
+  left: 0; */
 }
 .columns {
   max-width: 75em;

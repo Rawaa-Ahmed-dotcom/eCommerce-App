@@ -3,8 +3,9 @@ header {
   box-shadow: 0 0 5px var(--color-neutral-dark-gray);
   position: sticky;
   height: 4.5em;
-  
+  z-index: 1000;
   top: 0;
+  background-color: white;
 }
 .wrapper,
 .other_screens {
@@ -122,5 +123,8 @@ header {
   }
   .wrapper {
     display: none;
+  }
+  header {
+    padding-inline: 3em;
   }
 }
