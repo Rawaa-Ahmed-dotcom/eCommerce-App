@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd server && npm run server",
+    "client": "cd client && npm run client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rawaa-Ahmed-dotcom/eCommerce-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Rawaa-Ahmed-dotcom/eCommerce-App/issues"
+  },
+  "homepage": "https://github.com/Rawaa-Ahmed-dotcom/eCommerce-App#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
