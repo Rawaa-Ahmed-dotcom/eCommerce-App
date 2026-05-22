@@ -1,10 +1,22 @@
-import React from 'react'
+import { useEffect } from 'react';
+import { RouterProvider } from 'react-router';
+import { routes } from './Routes';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const App = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,      
+      easing: 'ease-out',
+    });
+  }, []);
   return (
-    <div>
-      Hello react
-    </div>
+    <>
+      <RouterProvider router={routes}/>
+    </>
   )
 }
 
