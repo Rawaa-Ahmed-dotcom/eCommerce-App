@@ -1,21 +1,16 @@
-import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { routes } from './Routes';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 
 const App = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,      
-      easing: 'ease-out',
-    });
-  }, []);
+  const queryClient = new QueryClient();
   return (
     <>
-      <RouterProvider router={routes}/>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={routes}/>
+      </QueryClientProvider>
     </>
   )
 }

@@ -7,7 +7,8 @@ export const routes = createBrowserRouter([
         path : "/",
         element : <MainLayout/>,
         children : [
-            {index : true ,  element : <Home/>}
+            {index : true ,  element : <Home/>},
+        
         ]
     }
 ])

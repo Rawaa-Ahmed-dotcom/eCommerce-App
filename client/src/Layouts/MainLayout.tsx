@@ -1,12 +1,14 @@
-import Header from '../components/common/Header'
-import { Outlet } from 'react-router'
+
+import Header from "../components/common/Header";
+import { Outlet } from "react-router";
 const MainLayout = () => {
   return (
     <>
-        <Header/>
-        <Outlet/>
-    </>
-  )
-}
+      <Header />
 
-export default MainLayout
+      <Outlet />
+    </>
+  );
+};
+
+export default MainLayout;
