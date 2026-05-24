@@ -5,6 +5,7 @@ import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import { Link } from "react-router";
 import CategoryCard from "../components/common/CategoryCard";
 import type { CategoryInterface } from "../utils/Types";
+import Footer from "../components/common/Footer";
 
 const Home = () => {
   const { categories, isLoading, isError, error } = useGetAllCategories();
@@ -54,6 +55,19 @@ const Home = () => {
             {categories?.data?.map((cat : CategoryInterface , index : number) => <CategoryCard cat = {cat} key = {index}/>)}
           </div>
         </div>
+      </ScrollSection >
+      <ScrollSection className=" py-[5em] bg-[#E4F0F4] px-[1em] md:px-[2em] lg:px-[5em] flex  items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
+            <h2 className="text-[#131D21] text-[3em] font-semibold text-center">Join the Community</h2>
+            <p className="text-[#586062] text-[1.125em] font-normal font-[Inter] mt-[1.5em] text-center">Get early access to collections, ethical living tips, and community stories.</p>
+            <div className="flex mt-[3em] gap-[0.5em] items-center max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:w-full">
+              <input type="email" placeholder="Your email address" className="placeholder:text-[#6B7280] text-[#6B7280] bg-white border boder-[#C0C8C7] rounded-md w-[calc((100% - 8px) / 2)] px-[1.5em] py-[1em] focus:outline-none max-sm:w-full"/>
+              <button className="w-[calc((100% - 8px) / 2)] bg-[#416465] text-white px-[5em] py-[1em] rounded-md font-bold font-[Inter] text-[1em] cursor-pointer transition-colors duration-300 hover:bg-[#415454] max-sm:w-full">Subscribe</button>
+            </div>
+        </div>
+      </ScrollSection>
+      <ScrollSection className="bg-white px-[1em] md:px-[2em] lg:px-[5em] py-[5em] w-full">
+        <Footer/>
       </ScrollSection>
     </div>
   );
