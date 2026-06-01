@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="flex md:flex-row flex-col items-center md:items-start justify-between w-full">
+    <div className="flex md:flex-row flex-col items-center md:items-start justify-between bg-white px-[1em] md:px-[2em] lg:px-[5em] py-[5em] w-full">
       <div className="flex flex-col md:items-start md:w-fit w-full items-center md:mb-0 mb-[2em]">
         <h2 className="uppercase text-[#131D21] font-bold text-[1.5em] text-center">
           vestry

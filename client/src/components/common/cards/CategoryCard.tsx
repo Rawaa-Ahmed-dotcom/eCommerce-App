@@ -1,4 +1,4 @@
-import type { CategoryInterface } from "../../utils/Types"
+import type { CategoryInterface } from "../../../utils/Types"
 import { Link } from "react-router"
 const CategoryCard = ({cat } : {cat : CategoryInterface}) => {
 

@@ -7,6 +7,12 @@ body {
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
+:root {
+    --color-primary : #416465;
+    --color-secondary-dark-gray : #414848;
+    --color-secondary-black : #131D21;
+    --color-secondary-light-gray: #586062;
+}
 @media (max-width : 1250px) {
     html {
         font-size: 16px;

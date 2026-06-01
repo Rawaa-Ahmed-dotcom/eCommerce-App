@@ -3,7 +3,7 @@ import { featuresMap } from "../utils/maps";
 import { ScrollSection } from "../components/common/ScrollSection";
 import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import { Link } from "react-router";
-import CategoryCard from "../components/common/CategoryCard";
+import CategoryCard from "../components/common/cards/CategoryCard.tsx";
 import type { CategoryInterface } from "../utils/Types";
 import Footer from "../components/common/Footer";
 
@@ -66,9 +66,7 @@ const Home = () => {
             </div>
         </div>
       </ScrollSection>
-      <ScrollSection className="bg-white px-[1em] md:px-[2em] lg:px-[5em] py-[5em] w-full">
-        <Footer/>
-      </ScrollSection>
+      
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { motion, useScroll, useMotionValueEvent, type Variants } from "framer-motion";
 import { useRef, useState, type ReactNode } from "react";
 import { sectionVariants } from "../../utils/animations";
-export const ScrollSection = ({ children , className } : {children : ReactNode , className : string}) => {
+export const ScrollSection = ({ children , className  } : {children : ReactNode , className? : string}) => {
   const { scrollY } = useScroll();
   const [direction, setDirection] = useState("down");
   const lastScrollY = useRef(0);
