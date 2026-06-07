@@ -2,11 +2,13 @@ import { upload } from "../config/cloudinary.mjs";
 import { addProduct } from "../controllers/Products/addProduct.mjs";
 import { getProducts } from "../controllers/Products/getProducts.mjs";
 import { Router } from "express";
+import { getSingleProduct } from "../controllers/Products/getSingleProduct.mjs";
 const router = Router();
 
 router.get("/",getProducts);
 // router.post("/",upload.array("images"),addProduct);
 
+router.get("/:slug",getSingleProduct);
 router.post(
   "/",
   (req, res, next) => {

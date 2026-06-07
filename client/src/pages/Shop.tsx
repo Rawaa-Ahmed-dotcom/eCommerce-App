@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import type { CategoryInterface } from "../utils/Types";
 import Select from "react-select";
@@ -10,7 +10,7 @@ import { type ProductInterface } from "../utils/Types";
 import { ArrowRight } from "lucide-react";
 import { handlePages } from "../utils/helpers";
 
-import { useGetAllProducts } from "../Hooks/Products/useGetAllProducts";
+import { useGetAllProducts } from "../Hooks/products.ts";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import {
   setCategory,
@@ -24,8 +24,8 @@ import { ScrollSection } from "../components/common/ScrollSection.tsx";
 import EmptyState from "../components/feedback/EmptyState.tsx";
 
 const Shop = () => {
-  const [minPrice , setMinPrice] = useState<number | "">("");
-  const [maxPrice , setMaxPrice] = useState<number | "">("");
+  const [minPrice, setMinPrice] = useState<number | "">("");
+  const [maxPrice, setMaxPrice] = useState<number | "">("");
 
   const { categories } = useGetAllCategories();
   const productsfilters = useAppSelector((state) => state.productFilters);
@@ -49,7 +49,7 @@ const Shop = () => {
     dispatch(resetFilters());
     setMinPrice("");
     setMaxPrice("");
-  }
+  };
   return (
     <div className="relative">
       <ScrollSection>
@@ -154,10 +154,10 @@ const Shop = () => {
                       )}
                     </div>
                   ) : (
-                    <EmptyState handleResetFilters = {handleResetFilters}/>
+                    <EmptyState handleResetFilters={handleResetFilters} />
                   )}
 
-                  {productsQuery.data.data.length > 0 && (numberOfPages > 1 && (
+                  {productsQuery.data.data.length > 0 && numberOfPages > 1 && (
                     <div className="flex items-center justify-center gap-[0.5em]">
                       <button
                         disabled={
@@ -197,7 +197,7 @@ const Shop = () => {
                         <ArrowRight />
                       </button>
                     </div>
-                  ))}
+                  )}
                 </div>
               )}
             </div>

@@ -8,3 +8,9 @@ export const activeClassMenu = (isActive: boolean) =>
   isActive
     ? "font-bold text-[1em] text-white font-[Inter]  "
     : "font-normal text-[1em] text-white/60 font-[Inter] hover:text-white ";
+
+
+export const activeClassBreadcrumb = (isActive: boolean) =>
+  isActive
+    ? "text-[#131D21] font-[Inter] font-medium text-[0.875em] transition duration-300 hover:underline"
+    : "text-[#586062]  font-[Inter] font-medium text-[0.875em] transition duration-300 hover:underline";

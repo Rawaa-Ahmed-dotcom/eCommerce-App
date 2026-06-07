@@ -15,10 +15,7 @@ export interface CategoryInterface {
     slug : string,
     img : CategoryImageInterface
 }
-interface color {
-    name : string, 
-    hex : string
-}
+
 export interface imageInterface {
     url : string,
     public_id : string,
@@ -26,9 +23,9 @@ export interface imageInterface {
     color : string ,
     isPrimary : boolean
 }
-interface variants {
+export interface variants {
     size : string,
-    color : color[],
+    color : string,
     sku : string,
     stock : number
 }
@@ -80,4 +77,20 @@ export interface ProductParams {
 export interface useStateProductParams {
     productParams : ProductParams,
     setProductParams : React.Dispatch<React.SetStateAction<ProductParams>>
+}
+
+export interface cartItem {
+    slug : string, 
+    title : string,
+    price : number,
+    color : string,
+    size : string,
+    quantity : number,
+    image : string
+}
+
+export interface cartState {
+    cartItems : cartItem[],
+    totalQuantity : number,
+    totalAmount : number
 }
