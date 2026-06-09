@@ -9,7 +9,7 @@ const LogoutWedgets = ({isMenuOpen,setIsMenuOpen} : SidebarProps) => {
   return (
     <div className="flex items-center gap-[1em] md:gap-[0.625em]">
       <NavLink
-        to="/register"
+        to="/auth/register"
         title="register"
         className={({ isActive }: { isActive: boolean }) =>
           activeClass(isActive)
