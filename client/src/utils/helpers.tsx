@@ -1,10 +1,16 @@
+import type { RegisterForm } from "./Types";
+import type { AppDispatch } from "../store";
+import { setPage } from "../store/features/productSlice";
+import Swal from "sweetalert2";
 
-import type { AppDispatch } from '../store';
-import { setPage } from '../store/features/productSlice';
+import { type MutateFunction } from "@tanstack/react-query";
+import type { NavigateFunction } from "react-router";
 
-export const handlePages = (numberOfPages : number , page : number , dispatch : AppDispatch) => {
-  
-
+export const handlePages = (
+  numberOfPages: number,
+  page: number,
+  dispatch: AppDispatch,
+) => {
   return Array.from({ length: numberOfPages }, (_, index) => {
     const pageNumber = index + 1;
 
@@ -20,4 +26,21 @@ export const handlePages = (numberOfPages : number , page : number , dispatch : 
   });
 };
 
-
+export const submit = (
+  data: RegisterForm,
+  mutate: MutateFunction<{ accessToken: string; msg: string }, unknown, RegisterForm, unknown>,
+  navigate: NavigateFunction
+) => {
+  mutate(data, {
+    onSuccess: (response) => {
+      localStorage.setItem("accessToken", response.accessToken);
+      Swal.fire({
+        title: "Success!",
+        text: response.msg,
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      navigate("/auth/login");
+    },
+  });
+};

@@ -94,3 +94,9 @@ export interface cartState {
     totalQuantity : number,
     totalAmount : number
 }
+
+export interface RegisterForm {
+    username : string,
+    email : string,
+    password : string
+}

@@ -7,6 +7,7 @@ import FallbackError from "./components/feedback/FallbackError";
 import Cart from "./pages/Cart";
 import Register from "./components/Auth/Register";
 import AuthLayout from "./Layouts/AuthLayout";
+import Login from "./components/Auth/Login";
 
 export const routes = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const routes = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
+      {
+        path : "login",
+        element : <Login/>
+      }
     ],
   },
 ]);
