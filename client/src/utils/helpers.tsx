@@ -1,4 +1,4 @@
-import type { RegisterForm } from "./Types";
+
 import type { AppDispatch } from "../store";
 import { setPage } from "../store/features/productSlice";
 import Swal from "sweetalert2";
@@ -26,11 +26,11 @@ export const handlePages = (
   });
 };
 
-export const submit = (
-  data: RegisterForm,
-  mutate: MutateFunction<{ accessToken: string; msg: string }, unknown, RegisterForm, unknown>,
-  navigate: NavigateFunction
-) => {
+export function submit<T> (
+  data: T,
+  mutate: MutateFunction<{ accessToken: string; msg: string }, unknown, T, unknown>,
+  navigate : NavigateFunction
+)  {
   mutate(data, {
     onSuccess: (response) => {
       localStorage.setItem("accessToken", response.accessToken);
@@ -40,7 +40,11 @@ export const submit = (
         icon: "success",
         confirmButtonText: "Ok",
       });
-      navigate("/auth/login");
+      if(response.msg === "Valid Credentials!") {
+        navigate("/");
+      }else if(response.msg === "User Created Successfully") {
+        navigate("/auth/login");
+      }
     },
   });
 };
