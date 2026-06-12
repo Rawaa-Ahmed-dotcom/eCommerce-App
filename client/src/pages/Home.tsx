@@ -5,11 +5,11 @@ import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import { Link } from "react-router";
 import CategoryCard from "../components/common/cards/CategoryCard.tsx";
 import type { CategoryInterface } from "../utils/Types";
-import Footer from "../components/common/Footer";
+
+
 
 const Home = () => {
   const { categories, isLoading, isError, error } = useGetAllCategories();
-  
   return (
     <div className="bg-[#F1FBFF]">
       <HeroBanner />

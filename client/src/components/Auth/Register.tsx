@@ -10,7 +10,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid },
-  } = useForm<RegisterForm>({ mode: "onBlur" });
+  } = useForm<RegisterForm>({ mode: "all" });
   const navigate = useNavigate();
   const { mutateAsync } = useCreateUser();
   
@@ -22,15 +22,16 @@ const Register = () => {
       </h2>
       <form
         className="flex flex-col gap-[1.5em]"
-        onSubmit={handleSubmit((data) => submit(data,mutateAsync,navigate))}
+        onSubmit={handleSubmit((data) =>  submit(data,mutateAsync , navigate))}
+        action="GET"
       >
-        <FormRow
+        <FormRow<RegisterForm>
           fieldName="username"
           validations={{ required: "Username is required" }}
           register={register}
           errors={errors}
         />
-        <FormRow
+        <FormRow<RegisterForm>
           fieldName="email"
           validations={{
             required: "Email is required",
@@ -43,7 +44,7 @@ const Register = () => {
           register={register}
           errors={errors}
         />
-        <FormRow
+        <FormRow<RegisterForm>
           fieldName="password"
           validations={{
             required: "Password is required",
