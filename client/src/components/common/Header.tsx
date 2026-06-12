@@ -5,6 +5,7 @@ import LoginWedgets from "./LoginWedgets";
 import LogoutWedgets from "./LogoutWedgets";
 import { motion, type Variants } from "framer-motion";
 
+
 const listVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -31,7 +32,7 @@ const itemVariants = {
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const accessToken = localStorage.getItem("accessToken") ;
   return (
     <motion.header
       className="flex flex-col justify-center w-full h-[4em] z-50 fixed top-0 left-0 bg-[#F1FBFF] border-b border-[#131d21]/5"
@@ -74,7 +75,7 @@ const Header = () => {
           transition={{ delay: 0.3, type: "spring", stiffness: 65, damping: 16 }}
           className="flex items-center"
         >
-          {isLoggedIn ? (
+          {accessToken ? (
             <LoginWedgets isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
           ) : (
             <LogoutWedgets isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
