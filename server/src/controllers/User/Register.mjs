@@ -14,7 +14,7 @@ export const handleRegister = async (req, res) => {
         const user = await User.create({ username, email, password });
         const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "15m" });
         const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
-        res.cookie("refresh_token" , refreshToken , {
+        res.cookie("refreshToken" , refreshToken , {
             maxAge : 7 * 24 * 60 * 60 * 1000,
             httpOnly : true,
             secure : process.env.NODE_ENV === "production"

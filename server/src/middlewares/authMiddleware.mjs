@@ -8,6 +8,7 @@ export const authMiddleWare = async (req, res, next) => {
             const token = accessToken.split(" ")[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             const user = await User.findById(decoded.id).select("-password");
+            console.log(decoded);
             if (!user) {
                 return res.status(401).json({ msg: "User Not Found" });
             }
