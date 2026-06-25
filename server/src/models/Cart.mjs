@@ -48,13 +48,13 @@ const cartSchema = new mongoose.Schema({
     }
 }, {timestamps : true});
 
-cartSchema.pre("save", function(next) {
+cartSchema.pre("save", function() {
     if(this.items && this.items.length > 0) {
         this.billTotal = this.items.reduce((acc,item) => acc + item.price * item.quantity , 0);
     }else {
         this.billTotal = 0;
     }
-    next();
+    
 })
 
 export default mongoose.model("Cart",cartSchema);
