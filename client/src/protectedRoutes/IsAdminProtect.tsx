@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
 export const IsAdminProtect = ({ children }: { children: React.ReactNode }) => {
   const role = localStorage.getItem("role") || "";
-  const navigate = useNavigate();
-  if (!role) {
-    navigate("/auth/login");
+ 
+  if (!role || role !== "admin") {
+    return <Navigate to= "/auth/login" replace/>;
   }
   return <>{children}</>;
 };

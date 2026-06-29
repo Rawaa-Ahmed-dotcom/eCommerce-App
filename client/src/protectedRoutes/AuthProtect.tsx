@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
 export const AuthProtect = ({ children }: { children: React.ReactNode }) => {
   const accessToken = localStorage.getItem("accessToken") || "";
-  const navigate = useNavigate();
+ 
   if (!accessToken) {
-    navigate("/auth/login");
+    return <Navigate to = "/auth/login" replace/>;
   }
   return <>{children}</>;
 };
