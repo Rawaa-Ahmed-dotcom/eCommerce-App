@@ -8,6 +8,9 @@ import Cart from "./pages/Cart";
 import Register from "./components/Auth/Register";
 import AuthLayout from "./Layouts/AuthLayout";
 import Login from "./components/Auth/Login";
+import { AuthProtect } from "./protectedRoutes/AuthProtect";
+import AdminLayout from "./Layouts/AdminLayout";
+import { IsAdminProtect } from "./protectedRoutes/isAdminProtect";
 
 export const routes = createBrowserRouter([
   {
@@ -18,7 +21,14 @@ export const routes = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "shop", element: <Shop /> },
       { path: "productDetails/:slug", element: <ProductDetails /> },
-      { path: "cart", element: <Cart /> },
+      {
+        path: "cart",
+        element: (
+          <AuthProtect>
+            <Cart />{" "}
+          </AuthProtect>
+        ),
+      },
     ],
   },
   {
@@ -30,9 +40,17 @@ export const routes = createBrowserRouter([
         element: <Register />,
       },
       {
-        path : "login",
-        element : <Login/>
-      }
+        path: "login",
+        element: <Login />,
+      },
     ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <IsAdminProtect>
+        <AdminLayout />
+      </IsAdminProtect>
+    ),
   },
 ]);
