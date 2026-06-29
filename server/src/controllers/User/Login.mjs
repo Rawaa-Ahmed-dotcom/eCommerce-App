@@ -30,6 +30,7 @@ export const handleLogin = async (req, res) => {
             id: existed._id,
             username: existed.username,
             email: existed.email,
+            role : existed.role
         };
         return res.status(200).json({ msg: "Valid Credentials!", accessToken, user});
     } catch (err) {

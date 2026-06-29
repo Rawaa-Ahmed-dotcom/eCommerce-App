@@ -1,4 +1,10 @@
-import type { FieldErrors, Path, RegisterOptions, UseFormRegister , FieldValues} from "react-hook-form";
+import type {
+  FieldErrors,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+  FieldValues,
+} from "react-hook-form";
 
 export interface SidebarProps {
   isMenuOpen: boolean;
@@ -107,25 +113,24 @@ export interface LoginForm {
   password: string;
 }
 
-export type FormRowProps<T extends FieldValues>  = {
-  fieldName: Path<T>,
-  validations: RegisterOptions<T>,
-  register: UseFormRegister<T>,
-  errors: FieldErrors<T>
-}
-export type LoginResponse = {
-    msg : string,
-    accessToken : string,
-    user : {
-        id : string, 
-        email : string,
-        username : string
-    }
-}
-export type RegisterResponse = {
-    msg : string,
-    accessToken : string
-}
+export type FormRowProps<T extends FieldValues> = {
+  fieldName: Path<T>;
+  validations: RegisterOptions<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+};
+export type AuthResponse = {
+  msg: string;
+  accessToken: string;
+  user: user;
+};
+
 export type ApiErrorResponse = {
-    msg : string
-}
+  msg: string;
+};
+export type user = {
+  id: string;
+  email: string;
+  username: string;
+  role: string;
+};

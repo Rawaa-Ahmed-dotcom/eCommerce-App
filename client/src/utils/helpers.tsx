@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 import { type MutateFunction } from "@tanstack/react-query";
 import type { NavigateFunction } from "react-router";
+import type { user } from "./Types";
 
 export const handlePages = (
   numberOfPages: number,
@@ -28,12 +29,13 @@ export const handlePages = (
 
 export function submit<T> (
   data: T,
-  mutate: MutateFunction<{ accessToken: string; msg: string }, unknown, T, unknown>,
+  mutate: MutateFunction<{ accessToken: string; msg: string , user : user}, unknown, T, unknown>,
   navigate : NavigateFunction
 )  {
   mutate(data, {
     onSuccess: (response) => {
       localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("role" , response.user.role);
       Swal.fire({
         title: "Success!",
         text: response.msg,

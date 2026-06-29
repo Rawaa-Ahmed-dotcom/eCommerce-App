@@ -30,9 +30,8 @@ const itemVariants = {
 };
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const accessToken = localStorage.getItem("accessToken") ;
+  const accessToken = localStorage.getItem("accessToken") || null;
   return (
     <motion.header
       className="flex flex-col justify-center w-full h-[4em] z-50 fixed top-0 left-0 bg-[#F1FBFF] border-b border-[#131d21]/5"
