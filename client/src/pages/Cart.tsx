@@ -10,6 +10,12 @@ const Cart = () => {
   const { cartItems } = useAppSelector((state) => state.cartState);
   const dispatch = useAppDispatch();
   console.log(cartItems);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+  const shipping = 5;
+  const taxes = 1.5;
   return (
     <ScrollSection>
       <main className="px-[1em] w-full md:px-[2em] lg:px-[5em] my-[5em] py-[5em] flex! flex-col gap-[3em] items-start justify-start bg-[#F1FBFF]">
@@ -25,7 +31,7 @@ const Cart = () => {
               </p>
             </div>
             <div className="flex md:flex-row flex-col gap-[3em] w-full">
-              <div className="flex gap-[1.5em] w-[50%] flex-col h-120 overflow-y-auto">
+              <div className="flex gap-[1.5em] w-[60%] flex-col h-120 overflow-y-auto">
                 {cartItems.map((item: cartItem, index: number) => {
                   return (
                     <div
@@ -115,12 +121,58 @@ const Cart = () => {
                               <Plus size={16} color="#131D21" />
                             </button>
                           </div>
-                          <span className="text-[#131D21] font-medium text-[1.5em]">EGP {(item.price * item.quantity).toFixed(2)}</span>
+                          <span className="text-[#131D21] font-medium text-[1.5em]">
+                            EGP {(item.price * item.quantity).toFixed(2)}
+                          </span>
                         </div>
                       </div>
                     </div>
                   );
                 })}
+              </div>
+              <div className="p-6 border border-[#C0C8C7] rounded-xl bg-[#EAF5FA] w-[40%] flex flex-col gap-6">
+                <h2 className="text-[#131D21] text-2xl font-medium capitalize">
+                  order summary
+                </h2>
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between items-center">
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      subtotal
+                    </span>
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      ${subtotal.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      shipping
+                    </span>
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      ${shipping.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-b-[#C0C8C7] pb-3">
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      taxes
+                    </span>
+                    <span className="capitalize text-[#414848] font-[Inter] font-normal text-[16px]">
+                      ${taxes.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#131D21] font-[Inter] font-bold text-[16px]">
+                      Total
+                    </span>
+                    <span className="font-[Inter] font-bold text-2xl text-[#416465]">
+                      ${(subtotal + shipping + taxes).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <button className="bg-[#416465] rounded-lg font-[Inter] font-bold text-[16px] text-white w-[60%] flex items-center justify-center py-4 cursor-pointer">
+                    PROCEED TO CHECKOUT
+                  </button>
+                </div>
               </div>
             </div>
           </>
