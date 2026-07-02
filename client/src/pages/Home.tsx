@@ -1,5 +1,5 @@
 import HeroBanner from "../components/HeroBanner";
-import { featuresMap } from "../utils/maps";
+import { featuresMap } from "../utils/maps.tsx";
 import { ScrollSection } from "../components/common/ScrollSection";
 import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import { Link } from "react-router";
