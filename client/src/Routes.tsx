@@ -10,7 +10,11 @@ import AuthLayout from "./Layouts/AuthLayout";
 import Login from "./components/Auth/Login";
 import { AuthProtect } from "./protectedRoutes/AuthProtect";
 import AdminLayout from "./Layouts/AdminLayout";
-import { IsAdminProtect } from "./protectedRoutes/isAdminProtect";
+import { IsAdminProtect } from "./protectedRoutes/IsAdminProtect";
+import AdminOverview from "./pages/AdminOverview";
+import AdminProducts from "./pages/AdminProducts";
+import AdminOrders from "./pages/AdminOrders";
+import AdminUsers from "./pages/AdminUsers";
 
 export const routes = createBrowserRouter([
   {
@@ -52,5 +56,11 @@ export const routes = createBrowserRouter([
         <AdminLayout />
       </IsAdminProtect>
     ),
+    children : [
+      {index : true , element : <AdminOverview/>},
+      {path : "products"  , element : <AdminProducts/>},
+      {path : "orders" , element : <AdminOrders/>},
+      {path : "users" , element : <AdminUsers/>}
+    ]
   },
 ]);
