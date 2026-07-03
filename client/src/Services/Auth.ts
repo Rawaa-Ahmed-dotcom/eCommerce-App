@@ -43,8 +43,8 @@ export const handleLogin = async (data: LoginForm): Promise<AuthResponse> => {
 export const handleLogout = async () => {
   try {
     const res = await axios.get("http://localhost:5000/api/auth/logout");
+    localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("cartItems");
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;

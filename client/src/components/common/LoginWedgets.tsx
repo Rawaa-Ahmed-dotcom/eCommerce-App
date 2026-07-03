@@ -4,26 +4,15 @@ import { activeClass } from "../../utils/CustomClasses";
 import Search from "./Search";
 import Sidebar from "./Sidebar";
 import type { SidebarProps } from "../../utils/Types";
-import { handleLogout } from "../../Services/Auth";
-import { useState } from "react";
-import Swal from "sweetalert2";
+
+import { useHandleLogout } from "../../Hooks/auth";
 
 const LoginWedgets = ({ isMenuOpen, setIsMenuOpen }: SidebarProps) => {
-  const [message, setMessage] = useState<string>("");
-  
-  const logout = async () => {
-    const {msg} = await handleLogout();
-    
-    setMessage(msg);
+  const logoutMutation = useHandleLogout();
+  const logout = () => {
+    logoutMutation.mutate();
   };
-  if (message) {
-    Swal.fire({
-      title: "Success!",
-      text: message,
-      icon: "success",
-      confirmButtonText: "Ok",
-    });
-  }
+
   return (
     <div className="flex items-center gap-[1em] md:gap-[0.625em]">
       <NavLink
