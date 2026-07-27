@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import type { CategoryInterface } from "../utils/Types";
 import Select from "react-select";
@@ -22,18 +22,28 @@ import {
 import CardSkeleton from "../components/common/skeletons/CardSkeleton.tsx";
 import { ScrollSection } from "../components/common/ScrollSection.tsx";
 import EmptyState from "../components/feedback/EmptyState.tsx";
+import { useSearchParams } from "react-router";
 
 const Shop = () => {
+  const [searchParams,setSearchParams] = useSearchParams(); 
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if(category) {
+      dispatch(setCategory(category));
+    }
+   
+  } , [dispatch , searchParams]);
 
   const { categories } = useGetAllCategories();
   const productsfilters = useAppSelector((state) => state.productFilters);
-  const dispatch = useAppDispatch();
   const productsQuery = useGetAllProducts(productsfilters);
   const limit: number = 2;
   const numberOfPages: number = Math.ceil(
-    (productsQuery.data?.totalProducts || 0) / limit,
+    (productsQuery.data?.filteredProductsCount || 0) / limit,
   );
 
   const handlePrice = () => {
@@ -49,7 +59,9 @@ const Shop = () => {
     dispatch(resetFilters());
     setMinPrice("");
     setMaxPrice("");
+    setSearchParams("");
   };
+  console.log(productsQuery?.data);
   return (
     <div className="relative">
       <ScrollSection>
@@ -157,7 +169,7 @@ const Shop = () => {
                     <EmptyState handleResetFilters={handleResetFilters} />
                   )}
 
-                  {productsQuery.data.data.length > 0 && numberOfPages > 1 && (
+                  {productsQuery?.data?.filteredProductsCount > 0 && numberOfPages > 1 && (
                     <div className="flex items-center justify-center gap-[0.5em]">
                       <button
                         disabled={

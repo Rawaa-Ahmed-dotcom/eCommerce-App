@@ -1,12 +1,12 @@
-import axios from "axios";
-
+import api from "../../api/config";
 export const getAllCategories = async () => {
     try {
-        const res  = await axios.get("http://localhost:5000/api/categories");
+        const res  = await api.get("/categories");
         const categories = await res.data
         return categories;
     } catch (err: unknown) {
         if (err instanceof Error) {
+            console.log(err);
             throw new Error(err.message, { cause: err });
         }
 

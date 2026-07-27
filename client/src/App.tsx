@@ -15,8 +15,9 @@ const App = () => {
     mutations: {
       onError: (error) => {
         toast.error(error.message || 'Oops , Unexpected Error!');
-      },
-    },
+      }
+    }
+    
   }});
   return (
     <ReduxProvider store={store}>

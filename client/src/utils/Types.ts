@@ -115,9 +115,15 @@ export interface LoginForm {
 
 export type FormRowProps<T extends FieldValues> = {
   fieldName: Path<T>;
-  validations: RegisterOptions<T>;
+  label : string;
+  validations?: RegisterOptions<T>;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
+  customClass? : string;
+  placeholder? : string,
+  defaultValue ? :string,
+  disabled? : boolean,
+  type? : string
 };
 export type AuthResponse = {
   msg: string;
@@ -134,3 +140,68 @@ export type user = {
   username: string;
   role: string;
 };
+
+export interface ReduxState {
+  user : user | null,
+  token : string | null
+}
+
+export interface orderItem {
+  product : string,
+  size : string,
+  color : string,
+  quantity : number,
+  price : number
+}
+export interface orderData {
+  orderItems : [orderItem];
+
+  personalInfo : checkoutForm
+}
+
+export interface checkoutForm {
+  contactInfo : {
+    fullname : string,
+    email : string,
+    phone : string
+  },
+  shippingAddress : {
+    address : string,
+    city : string, 
+    state:  string,
+    zipCode : string
+  },
+  paymentMethod : "card" | "ccd",
+  cardInfo? : {
+    cardNumber : string,
+    expiryDate : string,
+    ccv : string
+  }
+}
+
+export interface Profile {
+  username : string,
+  email : string,
+  role : string,
+  profileImg : {
+    url : string,
+    public_id : string
+  },
+  phone : string
+}
+
+export interface PersonalForm {
+  username? : string,
+  email? : string,
+  phone : string
+}
+
+export interface ResetPasswordPayload {
+  currentPassword : string,
+  newPassword : string,
+}
+export interface ResetPassword extends ResetPasswordPayload{
+  confirmNewPassword : string
+}
+
+

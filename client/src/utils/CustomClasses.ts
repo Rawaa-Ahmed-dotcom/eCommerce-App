@@ -17,3 +17,9 @@ export const activeClassAdmin = (isActive: boolean) =>
   isActive
     ? "flex items-center gap-[5px] bg-[#B2D8D8]! text-[#3C5F60] font-bold px-[16px] py-[12px]  text-[16px] rounded-[8px] font-[Inter]"
     : "flex items-center gap-[5px] px-[16px] py-[12px] rounded-[8px] font-[Inter] font-normal text-[16px] text-[#414848] bg-transparent";
+
+
+export const activeClassProfile = (isActive : boolean) => 
+  isActive
+  ? "text-[#416465] font-[Inter] text-[14px] font-bold border-b-2 border-b-[#416465] uppercase pb-2.5" 
+  : "text-[#414848] font-[Inter] text-[14px] font-medium border-b-2 border-b-transparent uppercase pb-2.5";

@@ -15,6 +15,10 @@ import AdminOverview from "./pages/AdminOverview";
 import AdminProducts from "./pages/AdminProducts";
 import AdminOrders from "./pages/AdminOrders";
 import AdminUsers from "./pages/AdminUsers";
+import Checkout from "./pages/Checkout";
+import ProfilePage from "./pages/Profile.tsx";
+import ProfileSettings from "./pages/ProfileSettings";
+import OrdersHistory from "./pages/OrdersHistory";
 
 export const routes = createBrowserRouter([
   {
@@ -29,10 +33,26 @@ export const routes = createBrowserRouter([
         path: "cart",
         element: (
           <AuthProtect>
-            <Cart />{" "}
+            <Cart />
           </AuthProtect>
         ),
       },
+      {
+        path : "checkout",
+        element : (
+          <AuthProtect>
+            <Checkout/>
+          </AuthProtect>
+        )
+      },
+      {
+        path : "profile",
+        element : <ProfilePage/>,
+        children : [
+          {index : true , element : <ProfileSettings/>},
+          {path : "ordershistory" , element : <OrdersHistory/>}
+        ]
+      }
     ],
   },
   {

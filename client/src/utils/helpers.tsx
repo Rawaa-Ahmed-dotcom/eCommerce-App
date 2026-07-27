@@ -1,11 +1,17 @@
-
 import type { AppDispatch } from "../store";
 import { setPage } from "../store/features/productSlice";
 import Swal from "sweetalert2";
 
-import { type MutateFunction } from "@tanstack/react-query";
+import { type MutateFunction, type UseMutationResult } from "@tanstack/react-query";
 import type { NavigateFunction } from "react-router";
-import type { user } from "./Types";
+import type { user, PersonalForm, Profile } from "./Types";
+import toast from "react-hot-toast";
+import type { UseFormReset } from "react-hook-form";
+
+
+
+
+
 
 export const handlePages = (
   numberOfPages: number,
@@ -27,26 +33,45 @@ export const handlePages = (
   });
 };
 
-export function submit<T> (
+export function submit<T>(
   data: T,
-  mutate: MutateFunction<{ accessToken: string; msg: string , user : user}, unknown, T, unknown>,
-  navigate : NavigateFunction
-)  {
+  mutate: MutateFunction<
+    { accessToken: string; msg: string; user: user },
+    unknown,
+    T,
+    unknown
+  >,
+  navigate: NavigateFunction,
+) {
   mutate(data, {
     onSuccess: (response) => {
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("role" , response.user.role);
       Swal.fire({
         title: "Success!",
         text: response.msg,
         icon: "success",
         confirmButtonText: "Ok",
       });
-      if(response.msg === "Valid Credentials!") {
+      if (response.msg === "Valid Credentials!") {
         navigate("/");
-      }else if(response.msg === "User Created Successfully") {
+      } else if (response.msg === "User Created Successfully") {
         navigate("/auth/login");
       }
     },
+  });
+}
+
+export const submitPersonalInfo = (data: PersonalForm, personalInfoMutation : UseMutationResult) => {
+  console.log(data);
+  return toast.promise(personalInfoMutation.mutateAsync(data), {
+    loading: "Saving...",
+    success: <b>Profile Updated Successfully</b>,
+    error: <b>Changes Failed to be Saved</b>,
+  });
+};
+export const handleCancel = (reset : UseFormReset<PersonalForm>, user : Profile ) => {
+  reset({
+    username: user?.username,
+    email: user?.email,
+    phone: user?.phone,
   });
 };

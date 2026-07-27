@@ -23,8 +23,9 @@ export const handleLogin = async (req, res) => {
             refreshToken,
             {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                secure: process.env.NODE_ENV === "production",
-                httpOnly: true
+                secure: true,
+                httpOnly: true,
+                sameSite : "none"
             });
         const user =  {
             id: existed._id,

@@ -11,7 +11,7 @@ export const handleRegister = async (
 ): Promise<AuthResponse> => {
   try {
     const res = await axios.post<AuthResponse>(
-      "http://localhost:5000/api/auth/register",
+      "/api/auth/register",
       data,
     );
     console.log(res.data);
@@ -27,7 +27,7 @@ export const handleRegister = async (
 export const handleLogin = async (data: LoginForm): Promise<AuthResponse> => {
   try {
     const res = await axios.post<AuthResponse>(
-      "http://localhost:5000/api/auth/login",
+      "/api/auth/login",
       data,
     );
 
@@ -42,7 +42,7 @@ export const handleLogin = async (data: LoginForm): Promise<AuthResponse> => {
 
 export const handleLogout = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/auth/logout");
+    const res = await axios.get("/api/auth/logout");
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
     return res.data;

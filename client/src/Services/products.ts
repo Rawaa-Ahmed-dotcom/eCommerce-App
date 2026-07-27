@@ -1,9 +1,9 @@
-import axios from "axios";
 import type { ProductParams } from "../utils/Types";
+import api from "../api/config";
 
 export const getAllProducts = async (productParams: ProductParams) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/products`, {
+    const res = await api.get(`/products`, {
       params: productParams,
     });
 
@@ -17,7 +17,7 @@ export const getAllProducts = async (productParams: ProductParams) => {
 
 export const getSingleProduct = async (slug: string) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/products/${slug}`);
+    const res = await api.get(`/products/${slug}`);
     return res.data;
   } catch (err) {
     const serverMessage: string = err.response?.data?.msg;
