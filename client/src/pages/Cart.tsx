@@ -5,7 +5,6 @@ import { OctagonMinus, Trash } from "lucide-react";
 import type { cartItem } from "../utils/Types";
 import { deleteItem, updateQuantity } from "../store/features/cartSlice";
 import { Plus, Minus } from "lucide-react";
-
 const Cart = () => {
   const { cartItems } = useAppSelector((state) => state.cartState);
   const dispatch = useAppDispatch();
@@ -14,8 +13,13 @@ const Cart = () => {
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
+  const numberOfItems = cartItems.reduce(
+    (acc, item) => item.quantity * 1 + acc,
+    0,
+  );
   const shipping = 5;
   const taxes = 1.5;
+
   return (
     <ScrollSection>
       <main className="px-[1em] w-full md:px-[2em] lg:px-[5em] my-[5em] py-[5em] flex! flex-col gap-[3em] items-start justify-start bg-[#F1FBFF]">
@@ -26,7 +30,7 @@ const Cart = () => {
                 your cart
               </h2>
               <p className="text-[#414848] font-[Inter] font-normal text-[1em]">
-                You have {cartItems.length} items in your cart. Review and
+                You have {numberOfItems} items in your cart. Review and
                 checkout below.
               </p>
             </div>
@@ -169,9 +173,15 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
-                  <button className="bg-[#416465] rounded-lg font-[Inter] font-bold text-[16px] text-white w-[60%] flex items-center justify-center py-4 cursor-pointer">
+                  <Link
+                    to="/checkout"
+                    className="bg-[#416465]! 
+                  rounded-lg font-[Inter] font-bold text-[16px]
+                   text-white w-[60%] flex items-center justify-center py-4 
+                   cursor-pointer"
+                  >
                     PROCEED TO CHECKOUT
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
