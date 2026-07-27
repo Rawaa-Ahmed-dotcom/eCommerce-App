@@ -1,14 +1,13 @@
 import { Pencil } from "lucide-react";
 import { useAppSelector } from "../store/hooks";
 import { useProfile, useProfileImage } from "../Hooks/profile";
-import type { Profile } from "../utils/Types";
 import { NavLink, Outlet, useLocation } from "react-router";
 import { motion , AnimatePresence} from "motion/react";
 
 const placeholderImage =
   "https://t3.ftcdn.net/jpg/16/22/17/64/360_F_1622176441_HhmUdRSNrwjLjUaOisFuBN9ZUdwoNk2K.jpg";
 
-const Profile = () => {
+const ProfilePage = () => {
   const mutation = useProfileImage();
   const { token } = useAppSelector((state) => state.authState);
   const { data } = useProfile();
@@ -76,7 +75,7 @@ const Profile = () => {
                 {isActive && (
                   <motion.div
                     layoutId="profile-tab-underline"
-                    className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#416465]"
+                    className="absolute -bottom-px left-0 right-0 h-0.5 bg-[#416465]"
                     transition={{ type: "spring", stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -99,7 +98,7 @@ const Profile = () => {
                 {isActive && (
                   <motion.div
                     layoutId="profile-tab-underline"
-                    className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#416465]"
+                    className="absolute -bottom-px left-0 right-0 h-0.5 bg-[#416465]"
                     transition={{ type: "spring", stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -124,4 +123,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
