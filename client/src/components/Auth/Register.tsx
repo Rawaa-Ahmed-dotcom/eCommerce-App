@@ -3,7 +3,7 @@ import type { RegisterForm } from "../../utils/Types";
 import { useCreateUser } from "../../Hooks/auth";
 import { submit } from "../../utils/helpers";
 import { useNavigate } from "react-router";
-import FormRow from "../common/FormRow";
+import FormRow from "../common/form/FormRow";
 
 const Register = () => {
   const {
@@ -13,7 +13,6 @@ const Register = () => {
   } = useForm<RegisterForm>({ mode: "all" });
   const navigate = useNavigate();
   const { mutateAsync } = useCreateUser();
-  
 
   return (
     <section className="bg-[rgba(255,255,255,1)] rounded-xl p-20 w-[50%] flex flex-col gap-[1.5em] shadow-[0_0_10px_rgba(0,0,0,0.3)]">
@@ -22,7 +21,7 @@ const Register = () => {
       </h2>
       <form
         className="flex flex-col gap-[1.5em]"
-        onSubmit={handleSubmit((data) =>  submit(data,mutateAsync , navigate))}
+        onSubmit={handleSubmit((data) => submit(data, mutateAsync, navigate))}
         action="GET"
       >
         <FormRow<RegisterForm>
@@ -30,6 +29,7 @@ const Register = () => {
           validations={{ required: "Username is required" }}
           register={register}
           errors={errors}
+          label = "Username"
         />
         <FormRow<RegisterForm>
           fieldName="email"
@@ -43,6 +43,7 @@ const Register = () => {
           }}
           register={register}
           errors={errors}
+          label = "Email"
         />
         <FormRow<RegisterForm>
           fieldName="password"
@@ -57,6 +58,8 @@ const Register = () => {
           }}
           register={register}
           errors={errors}
+          label = "Password"
+          type = "password"
         />
         <div className="flex items-center justify-center">
           <button

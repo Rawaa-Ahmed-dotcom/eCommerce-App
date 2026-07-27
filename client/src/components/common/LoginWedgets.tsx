@@ -41,7 +41,7 @@ const LoginWedgets = ({ isMenuOpen, setIsMenuOpen }: SidebarProps) => {
       </button>
 
       <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <Search />
+      <Search  />
     </div>
   );
 };

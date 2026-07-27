@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import type { LoginForm } from "../../utils/Types";
-import FormRow from "../common/FormRow";
+import FormRow from "../common/form/FormRow";
 import { submit } from "../../utils/helpers";
 import { useNavigate } from "react-router";
 import { useHandleLogin } from "../../Hooks/auth";
@@ -20,7 +20,7 @@ const Login = () => {
       </h2>
       <form
         className="flex flex-col gap-[1.5em]"
-        action = "GET"
+        action="GET"
         onSubmit={handleSubmit((data: LoginForm) =>
           submit(data, mutation.mutateAsync, navigate),
         )}
@@ -37,6 +37,7 @@ const Login = () => {
           }}
           register={register}
           errors={errors}
+          label = "Email"
         />
         <FormRow
           fieldName="password"
@@ -51,6 +52,8 @@ const Login = () => {
           }}
           register={register}
           errors={errors}
+          label = "Password"
+          type = "password"
         />
         <div className="flex items-center justify-center">
           <button

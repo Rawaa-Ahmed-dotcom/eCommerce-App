@@ -4,34 +4,16 @@ import { activeClass } from "../../utils/CustomClasses";
 import LoginWedgets from "./LoginWedgets";
 import LogoutWedgets from "./LogoutWedgets";
 import { motion, type Variants } from "framer-motion";
+import { listVariants } from "../../utils/animations";
+import { itemVariants } from "../../utils/animations";
+import { useAppSelector } from "../../store/hooks";
 
 
-const listVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.1, 
-    },
-  },
-};
-const itemVariants = {
-  hidden: { opacity: 0, x: -10 }, 
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      type: "spring", 
-      stiffness: 70,   
-      damping: 18 
-    } 
-  },
-};
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const accessToken = localStorage.getItem("accessToken") || null;
+  const {token} = useAppSelector(state => state.authState);
   return (
     <motion.header
       className="flex flex-col justify-center w-full h-[4em] z-50 fixed top-0 left-0 bg-[#F1FBFF] border-b border-[#131d21]/5"
@@ -54,7 +36,6 @@ const Header = () => {
           {[
             { to: "/", label: "Home" },
             { to: "/shop", label: "Shop" },
-            { to: "/categories", label: "Categories" },
             { to: "/contact", label: "Contact" },
           ].map((link, index) => (
             <motion.li key={index} variants={itemVariants as Variants}>
@@ -74,7 +55,7 @@ const Header = () => {
           transition={{ delay: 0.3, type: "spring", stiffness: 65, damping: 16 }}
           className="flex items-center"
         >
-          {accessToken ? (
+          {token ? (
             <LoginWedgets isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
           ) : (
             <LogoutWedgets isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
