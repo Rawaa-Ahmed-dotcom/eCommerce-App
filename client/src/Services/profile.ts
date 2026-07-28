@@ -1,12 +1,14 @@
 import type { AxiosError } from "axios";
 import api from "../api/config";
-import type { ApiErrorResponse, PersonalForm, ResetPasswordPayload } from "../utils/Types";
+import type {
+  ApiErrorResponse,
+  PersonalForm,
+  ResetPasswordPayload,
+} from "../utils/Types";
 
-export const uploadProfileImage = async (formData: FormData, token: string) => {
+export const uploadProfileImage = async (formData: FormData) => {
   try {
-    const res = await api.patch("/auth/profile-picture", formData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.patch("/auth/profile-picture", formData);
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -43,7 +45,19 @@ export const updateProfile = async (personalInfo: PersonalForm) => {
 
 export const changePassword = async (data: ResetPasswordPayload) => {
   try {
-    const res = await api.patch("/auth/change-password",data);
+    const res = await api.patch("/auth/change-password", data);
+    return res.data;
+  } catch (err) {
+    const error = err as AxiosError<ApiErrorResponse>;
+    const serverMessage = error.response?.data?.msg;
+    const fallbackMessage = error.message;
+    throw new Error(serverMessage || fallbackMessage, { cause: err });
+  }
+};
+
+export const deleteAccount = async () => {
+  try {
+    const res = await api.delete("/auth/profile");
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;

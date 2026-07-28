@@ -1,5 +1,6 @@
 import FormRow from "../components/common/form/FormRow";
 import {
+  useDeleteAccount,
   usePassword,
   usePersonalInfoProfile,
   useProfile,
@@ -10,6 +11,11 @@ import { useEffect } from "react";
 import { submitPersonalInfo } from "../utils/helpers";
 import { handleCancel } from "../utils/helpers";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "../store/hooks";
+import { logoutUser } from "../store/features/userSlice";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ProfileSettings = () => {
   const { data } = useProfile();
@@ -29,6 +35,11 @@ const ProfileSettings = () => {
   } = useForm<ResetPassword>({ mode: "onChange" });
   const personaInfoMutation = usePersonalInfoProfile();
   const passwordMutation = usePassword();
+  const deleteAccountMutation = useDeleteAccount();
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
   const handlePersonalInfoSubmit = async (personalData: PersonalForm) => {
     await submitPersonalInfo(personalData, personaInfoMutation as any);
   };
@@ -62,6 +73,48 @@ const ProfileSettings = () => {
       confirmNewPassword: "",
     });
   }
+
+  const handleDeleteAccount = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed) {
+        deleteAccountMutation.mutate(undefined, {
+          onSuccess: (data: { msg: string }) => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+            queryClient.clear();
+
+            Swal.fire({
+              title: "Deleted!",
+              text: data?.msg || "Your account has been deleted successfully.",
+              icon: "success",
+              confirmButtonColor: "#3085d6",
+            });
+            dispatch(logoutUser());
+            navigate("/auth/register");
+          },
+          onError: (error: Error) => {
+            const errorMessage =
+              (error as Error & { msg?: string }).msg || error.message;
+            Swal.fire({
+              title: "Error!",
+              text:
+                errorMessage || "Failed to delete account. Please try again.",
+              icon: "error",
+              confirmButtonColor: "#d33",
+            });
+          },
+        });
+      }
+    });
+  };
   return (
     <div className="p-20 flex flex-col gap-7">
       <form
@@ -208,6 +261,32 @@ const ProfileSettings = () => {
           </div>
         </div>
       </form>
+
+      <div className="bg-white rounded-xl p-12 w-full">
+        <div className="flex flex-col gap-3 items-center">
+          <h2 className="font-medium text-2xl text-[#BA1A1A] capitalize ">
+            danger zone
+          </h2>
+          <p className="text-[#586062] font-[Inter] font-normal text-[16px]">
+            Deleting your account is permanent. All your order history, saved
+            items, and personal data will be wiped from our servers.
+          </p>
+        </div>
+        <div className="flex flex-col mt-12 gap-6">
+          <div className="flex items-center justify-center gap-6">
+            <button
+              className=" flex items-center justify-center rounded-lg w-45 py-4
+                text-white font-[Inter] font-normal text-[16px] capitalize! cursor-pointer
+                bg-[#BA1A1A] transition-all duration-200 ease-in-out
+                hover:bg-[#980505]  hover:-translate-y-0.5
+                active:translate-y-0 active:bg-[#811212]"
+              onClick={handleDeleteAccount}
+            >
+              Delete account
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

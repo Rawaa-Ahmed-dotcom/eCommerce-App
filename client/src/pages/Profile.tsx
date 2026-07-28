@@ -2,14 +2,15 @@ import { Pencil } from "lucide-react";
 import { useAppSelector } from "../store/hooks";
 import { useProfile, useProfileImage } from "../Hooks/profile";
 import { NavLink, Outlet, useLocation } from "react-router";
-import { motion , AnimatePresence} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
+import toast from "react-hot-toast";
 
 const placeholderImage =
   "https://t3.ftcdn.net/jpg/16/22/17/64/360_F_1622176441_HhmUdRSNrwjLjUaOisFuBN9ZUdwoNk2K.jpg";
 
 const ProfilePage = () => {
   const mutation = useProfileImage();
-  const { token } = useAppSelector((state) => state.authState);
+
   const { data } = useProfile();
   const location = useLocation();
   const user = data?.user;
@@ -19,11 +20,14 @@ const ProfilePage = () => {
 
     const formData = new FormData();
     formData.append("profileImage", selectedFile);
-    mutation.mutate({ formData, token });
+    toast.promise(mutation.mutateAsync(formData), {
+      loading: "Uploading...",
+      success: "Profile Image Updated Successfully!",
+      error: "Something went wrong",
+    });
   };
 
-  const imageURL =
-    mutation.data?.url || user?.profileImg || placeholderImage;
+  const imageURL = mutation.data?.url || user?.profileImg || placeholderImage;
 
   return (
     <main className="flex! flex-col px-16 py-20 items-center">
@@ -115,7 +119,7 @@ const ProfilePage = () => {
             transition={{ duration: 0.2 }}
             className="w-full bg-[#F1FBFF] mt-5 rounded-xl min-h-screen"
           >
-            <Outlet/>
+            <Outlet />
           </motion.div>
         </AnimatePresence>
       </section>
