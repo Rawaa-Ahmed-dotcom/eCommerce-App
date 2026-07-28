@@ -1,15 +1,22 @@
-
 import Header from "../components/common/Header";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Footer from "../components/common/Footer";
-const MainLayout = () => {
-  return (
-    <>
-      <Header />
+import PageTransition from "../components/Transitions/PageTransition";
+import { AnimatePresence } from "motion/react";
 
-      <Outlet />
-      <Footer/>
-    </>
+const MainLayout = () => {
+  const location = useLocation();
+
+  return (
+    <div className="w-screen min-h-screen flex flex-col overflow-hidden">
+      <AnimatePresence mode="wait" initial={false}>
+        <PageTransition key={location.pathname}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </PageTransition>
+      </AnimatePresence>
+    </div>
   );
 };
 

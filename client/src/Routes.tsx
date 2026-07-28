@@ -20,6 +20,8 @@ import ProfilePage from "./pages/Profile.tsx";
 import ProfileSettings from "./pages/ProfileSettings";
 import OrdersHistory from "./pages/OrdersHistory";
 
+
+
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -29,58 +31,34 @@ export const routes = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "shop", element: <Shop /> },
       { path: "productDetails/:slug", element: <ProductDetails /> },
+      { path: "cart", element: <AuthProtect><Cart /></AuthProtect> },
+      { path: "checkout", element: <AuthProtect><Checkout /></AuthProtect> },
       {
-        path: "cart",
-        element: (
-          <AuthProtect>
-            <Cart />
-          </AuthProtect>
-        ),
+        path: "profile",
+        element: <ProfilePage />,
+        children: [
+          { index: true, element: <ProfileSettings /> },
+          { path: "ordershistory", element: <OrdersHistory /> },
+        ],
       },
-      {
-        path : "checkout",
-        element : (
-          <AuthProtect>
-            <Checkout/>
-          </AuthProtect>
-        )
-      },
-      {
-        path : "profile",
-        element : <ProfilePage/>,
-        children : [
-          {index : true , element : <ProfileSettings/>},
-          {path : "ordershistory" , element : <OrdersHistory/>}
-        ]
-      }
     ],
   },
   {
     path: "/auth",
     element: <AuthLayout />,
     children: [
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
+      { path: "register", element: <Register /> },
+      { path: "login", element: <Login /> },
     ],
   },
   {
     path: "/admin",
-    element: (
-      <IsAdminProtect>
-        <AdminLayout />
-      </IsAdminProtect>
-    ),
-    children : [
-      {index : true , element : <AdminOverview/>},
-      {path : "products"  , element : <AdminProducts/>},
-      {path : "orders" , element : <AdminOrders/>},
-      {path : "users" , element : <AdminUsers/>}
-    ]
+    element: <IsAdminProtect><AdminLayout /></IsAdminProtect>,
+    children: [
+      { index: true, element: <AdminOverview /> },
+      { path: "products", element: <AdminProducts /> },
+      { path: "orders", element: <AdminOrders /> },
+      { path: "users", element: <AdminUsers /> },
+    ],
   },
 ]);
