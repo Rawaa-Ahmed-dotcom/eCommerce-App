@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { LoginForm } from "../../utils/Types";
 import FormRow from "../common/form/FormRow";
 import { submit } from "../../utils/helpers";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useHandleLogin } from "../../Hooks/auth";
 const Login = () => {
   const {
@@ -37,7 +37,7 @@ const Login = () => {
           }}
           register={register}
           errors={errors}
-          label = "Email"
+          label="Email"
         />
         <FormRow
           fieldName="password"
@@ -52,8 +52,8 @@ const Login = () => {
           }}
           register={register}
           errors={errors}
-          label = "Password"
-          type = "password"
+          label="Password"
+          type="password"
         />
         <div className="flex items-center justify-center">
           <button
@@ -62,6 +62,14 @@ const Login = () => {
           >
             Login
           </button>
+        </div>
+        <div className="flex items-center justify-center mt-3">
+          <NavLink
+            to="/auth/register"
+            className="text-[#3C5F60] font-medium text-[0.95em] hover:text-[#87a4a4] hover:underline transition duration-300"
+          >
+            Don't have an account?
+          </NavLink>
         </div>
       </form>
     </section>

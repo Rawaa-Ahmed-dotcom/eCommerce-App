@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { RegisterForm } from "../../utils/Types";
 import { useCreateUser } from "../../Hooks/auth";
 import { submit } from "../../utils/helpers";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import FormRow from "../common/form/FormRow";
 
 const Register = () => {
@@ -29,7 +29,7 @@ const Register = () => {
           validations={{ required: "Username is required" }}
           register={register}
           errors={errors}
-          label = "Username"
+          label="Username"
         />
         <FormRow<RegisterForm>
           fieldName="email"
@@ -43,7 +43,7 @@ const Register = () => {
           }}
           register={register}
           errors={errors}
-          label = "Email"
+          label="Email"
         />
         <FormRow<RegisterForm>
           fieldName="password"
@@ -58,8 +58,8 @@ const Register = () => {
           }}
           register={register}
           errors={errors}
-          label = "Password"
-          type = "password"
+          label="Password"
+          type="password"
         />
         <div className="flex items-center justify-center">
           <button
@@ -70,6 +70,14 @@ const Register = () => {
           </button>
         </div>
       </form>
+      <div className="flex items-center justify-center mt-3">
+        <NavLink
+          to="/auth/login"
+          className="text-[#3C5F60] font-medium text-[0.95em] hover:text-[#87a4a4] hover:underline transition duration-300"
+        >
+          Already Have an account ?
+        </NavLink>
+      </div>
     </section>
   );
 };
