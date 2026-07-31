@@ -9,17 +9,13 @@ import Register from "./components/Auth/Register";
 import AuthLayout from "./Layouts/AuthLayout";
 import Login from "./components/Auth/Login";
 import { AuthProtect } from "./protectedRoutes/AuthProtect";
-import AdminLayout from "./Layouts/AdminLayout";
-import { IsAdminProtect } from "./protectedRoutes/IsAdminProtect";
-import AdminOverview from "./pages/AdminOverview";
-import AdminProducts from "./pages/AdminProducts";
-import AdminOrders from "./pages/AdminOrders";
-import AdminUsers from "./pages/AdminUsers";
 import Checkout from "./pages/Checkout";
 import ProfilePage from "./pages/Profile.tsx";
 import ProfileSettings from "./pages/ProfileSettings";
 import OrdersHistory from "./pages/OrdersHistory";
+import OrderDetails from "./pages/OrderDetails.tsx";
 
+import Contact from "./pages/Contact.tsx";
 
 
 export const routes = createBrowserRouter([
@@ -41,6 +37,8 @@ export const routes = createBrowserRouter([
           { path: "ordershistory", element: <OrdersHistory /> },
         ],
       },
+      {path : "order-details/:id",element : <AuthProtect><OrderDetails/></AuthProtect>},
+      {path : "contact",element: <AuthProtect><Contact/></AuthProtect>}
     ],
   },
   {
@@ -50,15 +48,5 @@ export const routes = createBrowserRouter([
       { path: "register", element: <Register /> },
       { path: "login", element: <Login /> },
     ],
-  },
-  {
-    path: "/admin",
-    element: <IsAdminProtect><AdminLayout /></IsAdminProtect>,
-    children: [
-      { index: true, element: <AdminOverview /> },
-      { path: "products", element: <AdminProducts /> },
-      { path: "orders", element: <AdminOrders /> },
-      { path: "users", element: <AdminUsers /> },
-    ],
-  },
+  }
 ]);

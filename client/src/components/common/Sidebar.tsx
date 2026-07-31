@@ -54,7 +54,6 @@ const Sidebar = ({isMenuOpen , setIsMenuOpen} : SidebarProps) => {
                   {[
                     { to: "/", label: "Home" },
                     { to: "/shop", label: "Shop" },
-                    { to: "/categories", label: "Categories" },
                     { to: "/contact", label: "Contact" },
                   ].map(({ to, label }, i) => (
                     <motion.li
@@ -77,6 +76,40 @@ const Sidebar = ({isMenuOpen , setIsMenuOpen} : SidebarProps) => {
                       </NavLink>
                     </motion.li>
                   ))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
                 </ul>
               </motion.div>
             </>
