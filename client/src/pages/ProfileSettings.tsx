@@ -53,6 +53,7 @@ const ProfileSettings = () => {
       });
     }
   }, [user, reset]);
+
   const submit = (data: ResetPassword) => {
     toast.promise(
       passwordMutation.mutateAsync({
@@ -66,6 +67,7 @@ const ProfileSettings = () => {
       },
     );
   };
+
   if (passwordMutation.isSuccess) {
     resetPassword({
       currentPassword: "",
@@ -84,7 +86,6 @@ const ProfileSettings = () => {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      console.log(result);
       if (result.isConfirmed) {
         deleteAccountMutation.mutate(undefined, {
           onSuccess: (data: { msg: string }) => {
@@ -115,25 +116,26 @@ const ProfileSettings = () => {
       }
     });
   };
+
   return (
-    <div className="p-20 flex flex-col gap-7">
+    <div className="p-4 sm:p-10 md:p-20 flex flex-col gap-5 md:gap-7">
       <form
         className="w-full"
         onSubmit={handleSubmit(handlePersonalInfoSubmit)}
       >
-        <div className="bg-white rounded-xl p-12">
-          <h2 className="font-medium text-2xl text-[#131D21] capitalize ">
+        <div className="bg-white rounded-xl p-5 sm:p-8 md:p-12">
+          <h2 className="font-medium text-xl sm:text-2xl text-[#131D21] capitalize">
             Personal information
           </h2>
-          <div className="flex flex-col mt-12 gap-6">
-            <div className="flex items-center gap-6 w-full">
+          <div className="flex flex-col mt-6 sm:mt-8 md:mt-12 gap-5 md:gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full">
               <FormRow
                 fieldName="username"
                 label="full name"
                 register={personalRegister}
                 errors={personalErrors}
                 validations={{ required: "Full Name is required" }}
-                customClass="w-[50%]"
+                customClass="w-full sm:w-[50%]"
                 defaultValue={user?.username}
               />
               <FormRow
@@ -143,7 +145,7 @@ const ProfileSettings = () => {
                 errors={personalErrors}
                 disabled={true}
                 defaultValue={user?.email}
-                customClass="w-[50%]"
+                customClass="w-full sm:w-[50%]"
               />
             </div>
 
@@ -161,11 +163,12 @@ const ProfileSettings = () => {
               }}
               placeholder="015 5252 7899"
             />
-            <div className="flex items-center justify-center gap-6">
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
               <button
                 type="submit"
-                className="bg-[#B2D8D8] flex items-center justify-center rounded-lg w-45 py-4
-    text-[#3C5F60] font-[Inter] font-normal text-[16px] capitalize! cursor-pointer
+                className="bg-[#B2D8D8] flex items-center justify-center rounded-lg w-full sm:w-45 py-3.5 sm:py-4
+    text-[#3C5F60] font-[Inter] font-normal text-sm sm:text-[16px] capitalize! cursor-pointer
     transition-all duration-200 ease-in-out
     hover:bg-[#9AC7C7] hover:shadow-md hover:-translate-y-0.5
     active:translate-y-0 active:shadow-sm active:bg-[#8AB8B8]
@@ -176,8 +179,8 @@ const ProfileSettings = () => {
 
               <button
                 type="button"
-                className="bg-transparent flex items-center justify-center rounded-lg w-45 py-4
-    text-[#586062] font-[Inter] font-normal text-[16px] capitalize! cursor-pointer
+                className="bg-transparent flex items-center justify-center rounded-lg w-full sm:w-45 py-3.5 sm:py-4
+    text-[#586062] font-[Inter] font-normal text-sm sm:text-[16px] capitalize! cursor-pointer
     border border-[#C0C8C7]
     transition-all duration-200 ease-in-out
     hover:bg-[#F5F7F7] hover:border-[#9CA8A7] hover:-translate-y-0.5
@@ -190,12 +193,13 @@ const ProfileSettings = () => {
           </div>
         </div>
       </form>
+
       <form className="w-full" onSubmit={handleSubmitPassword(submit)}>
-        <div className="bg-white rounded-xl p-12">
-          <h2 className="font-medium text-2xl text-[#131D21] capitalize ">
+        <div className="bg-white rounded-xl p-5 sm:p-8 md:p-12">
+          <h2 className="font-medium text-xl sm:text-2xl text-[#131D21] capitalize">
             Change Password
           </h2>
-          <div className="flex flex-col mt-12 gap-6">
+          <div className="flex flex-col mt-6 sm:mt-8 md:mt-12 gap-5 md:gap-6">
             <FormRow
               fieldName="currentPassword"
               label="current password"
@@ -204,7 +208,7 @@ const ProfileSettings = () => {
               validations={{ required: "Current Password is required" }}
               type="password"
             />
-            <div className="flex items-center gap-6 w-full">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full">
               <FormRow
                 fieldName="newPassword"
                 label="New Password"
@@ -225,7 +229,7 @@ const ProfileSettings = () => {
                     }
                   },
                 }}
-                customClass="w-[50%]"
+                customClass="w-full sm:w-[50%]"
                 type="password"
               />
               <FormRow
@@ -240,7 +244,7 @@ const ProfileSettings = () => {
                     if (newPassword !== value) return "Passwords do not match";
                   },
                 }}
-                customClass="w-[50%]"
+                customClass="w-full sm:w-[50%]"
                 type="password"
               />
             </div>
@@ -248,8 +252,8 @@ const ProfileSettings = () => {
             <div className="flex items-center justify-center gap-6">
               <button
                 type="submit"
-                className="bg-transparent flex items-center justify-center rounded-lg w-45 py-4
-                text-[#586062] font-[Inter] font-normal text-[16px] capitalize! cursor-pointer
+                className="bg-transparent flex items-center justify-center rounded-lg w-full sm:w-45 py-3.5 sm:py-4
+                text-[#586062] font-[Inter] font-normal text-sm sm:text-[16px] capitalize! cursor-pointer
                 border border-[#C0C8C7]
                 transition-all duration-200 ease-in-out
                 hover:bg-[#F5F7F7] hover:border-[#9CA8A7] hover:-translate-y-0.5
@@ -262,23 +266,23 @@ const ProfileSettings = () => {
         </div>
       </form>
 
-      <div className="bg-white rounded-xl p-12 w-full">
-        <div className="flex flex-col gap-3 items-center">
-          <h2 className="font-medium text-2xl text-[#BA1A1A] capitalize ">
+      <div className="bg-white rounded-xl p-5 sm:p-8 md:p-12 w-full">
+        <div className="flex flex-col gap-3 items-center text-center">
+          <h2 className="font-medium text-xl sm:text-2xl text-[#BA1A1A] capitalize">
             danger zone
           </h2>
-          <p className="text-[#586062] font-[Inter] font-normal text-[16px]">
+          <p className="text-[#586062] font-[Inter] font-normal text-sm sm:text-[16px]">
             Deleting your account is permanent. All your order history, saved
             items, and personal data will be wiped from our servers.
           </p>
         </div>
-        <div className="flex flex-col mt-12 gap-6">
+        <div className="flex flex-col mt-6 sm:mt-8 md:mt-12 gap-6">
           <div className="flex items-center justify-center gap-6">
             <button
-              className=" flex items-center justify-center rounded-lg w-45 py-4
-                text-white font-[Inter] font-normal text-[16px] capitalize! cursor-pointer
+              className="flex items-center justify-center rounded-lg w-full sm:w-45 py-3.5 sm:py-4
+                text-white font-[Inter] font-normal text-sm sm:text-[16px] capitalize! cursor-pointer
                 bg-[#BA1A1A] transition-all duration-200 ease-in-out
-                hover:bg-[#980505]  hover:-translate-y-0.5
+                hover:bg-[#980505] hover:-translate-y-0.5
                 active:translate-y-0 active:bg-[#811212]"
               onClick={handleDeleteAccount}
             >

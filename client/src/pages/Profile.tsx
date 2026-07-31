@@ -1,5 +1,4 @@
 import { Pencil } from "lucide-react";
-import { useAppSelector } from "../store/hooks";
 import { useProfile, useProfileImage } from "../Hooks/profile";
 import { NavLink, Outlet, useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
@@ -14,6 +13,7 @@ const ProfilePage = () => {
   const { data } = useProfile();
   const location = useLocation();
   const user = data?.user;
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
@@ -30,9 +30,9 @@ const ProfilePage = () => {
   const imageURL = mutation.data?.url || user?.profileImg || placeholderImage;
 
   return (
-    <main className="flex! flex-col px-16 py-20 items-center">
+    <main className="flex! flex-col px-[1em] sm:px-8 md:px-16 py-10 sm:py-16 md:py-20 items-center">
       <div className="flex flex-col items-center">
-        <div>
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
           <input
             type="file"
             className="sr-only peer"
@@ -42,30 +42,33 @@ const ProfilePage = () => {
           />
 
           <div
-            className={`w-32 h-32 rounded-full ${placeholderImage ? "bg-gray-500" : "bg-transparent"} flex items-center justify-center border-2 relative `}
+            className={`w-full h-full rounded-full ${placeholderImage ? "bg-gray-500" : "bg-transparent"} flex items-center justify-center border-2 relative overflow-hidden`}
           >
             <img
               src={imageURL}
               alt="profile-img"
-              className="w-full h-full rounded-full object-fit"
+              className="w-full h-full rounded-full object-cover"
             />
-            <label
-              htmlFor="profile-pic"
-              className="w-8 h-8 rounded-full bg-[#416465] flex items-center justify-center absolute left-24 top-20 cursor-pointer"
-            >
-              <Pencil size={16} color="white" />
-            </label>
           </div>
+
+          <label
+            htmlFor="profile-pic"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#416465] flex items-center justify-center absolute bottom-0 right-0 cursor-pointer"
+          >
+            <Pencil size={14} color="white" />
+          </label>
         </div>
-        <h2 className="font-semibold text-[32px] text-[#131D21] capitalize mt-3">
+
+        <h2 className="font-semibold text-xl sm:text-2xl md:text-[32px] text-[#131D21] capitalize mt-3 text-center">
           {user?.username}
         </h2>
-        <p className="mt-0.5 text-[16px] font-normal font-[Inter] text-[#414848]">
+        <p className="mt-0.5 text-sm sm:text-[16px] font-normal font-[Inter] text-[#414848]">
           {user?.email}
         </p>
       </div>
-      <section className="flex flex-col items-center mt-20 w-full">
-        <div className="flex gap-20 items-center border-b border-b-[#C0C8C7] w-full justify-center relative uppercase">
+
+      <section className="flex flex-col items-center mt-10 sm:mt-16 md:mt-20 w-full">
+        <div className="flex gap-8 sm:gap-14 md:gap-20 items-center border-b border-b-[#C0C8C7] w-full justify-center relative uppercase text-sm sm:text-base">
           <NavLink to="/profile" end className="relative pb-3">
             {({ isActive }) => (
               <>
@@ -110,6 +113,7 @@ const ProfilePage = () => {
             )}
           </NavLink>
         </div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

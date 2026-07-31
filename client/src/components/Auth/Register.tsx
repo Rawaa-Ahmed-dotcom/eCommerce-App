@@ -15,8 +15,8 @@ const Register = () => {
   const { mutateAsync } = useCreateUser();
 
   return (
-    <section className="bg-[rgba(255,255,255,1)] rounded-xl p-20 w-[50%] flex flex-col gap-[1.5em] shadow-[0_0_10px_rgba(0,0,0,0.3)]">
-      <h2 className="font-semibold text-[2em] tracking-[-0.32px] text-[#131D21]">
+    <section className="bg-[rgba(255,255,255,1)] rounded-xl p-8 md:p-20 w-full md:w-[50%] flex flex-col gap-[1.5em] shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+      <h2 className="font-semibold text-2xl md:text-[2em] tracking-[-0.32px] text-[#131D21]">
         Register Now!
       </h2>
       <form
@@ -63,7 +63,7 @@ const Register = () => {
         />
         <div className="flex items-center justify-center">
           <button
-            className="bg-[#B2D8D8] rounded-lg shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] flex items-center justify-center w-[50%] py-[1em] text-[#3C5F60] font-[Inter] font-semibold text-[1em] tracking-[0.16px] capitalize! cursor-pointer transition duration-300 hover:bg-[#87a4a4] disabled:bg-[#717878] disabled:pointer-events-none disabled:text-[#444747]"
+            className="bg-[#B2D8D8] rounded-lg shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] flex items-center justify-center w-full md:w-[50%] py-[1em] text-[#3C5F60] font-[Inter] font-semibold text-[1em] tracking-[0.16px] capitalize! cursor-pointer transition duration-300 hover:bg-[#87a4a4] disabled:bg-[#717878] disabled:pointer-events-none disabled:text-[#444747]"
             disabled={!isDirty || !isValid}
           >
             register
