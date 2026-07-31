@@ -24,6 +24,13 @@ const orderItemSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+    image :{ 
+        type : String,
+        default : null
+    },
+    title : {
+        type : String
     }
 }, { _id: false, timestamps: false });
 
@@ -74,7 +81,7 @@ const orderSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+        enum: ['Pending',  'Shipped', 'Delivered', 'Cancelled'],
         default: 'Pending'
     },
     paymentDetails : {

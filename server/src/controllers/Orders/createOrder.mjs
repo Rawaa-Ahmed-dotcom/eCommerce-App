@@ -21,7 +21,9 @@ export const createOrder = async (req, res) => {
                     size: item.size,
                     color: item.color,
                     quantity: item.quantity,
-                    price: product.salePrice || product.price
+                    price: product.salePrice || product.price,
+                    image : product.images.find((image) => image.isPrimary).url,
+                    title : product.title
                 }
             )
         }

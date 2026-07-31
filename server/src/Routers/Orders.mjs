@@ -7,11 +7,12 @@ import { adminMiddleware } from "../middlewares/adminMiddleware.mjs";
 import { getAllOrders } from "../controllers/Orders/getAllOrders.mjs";
 import { updateOrderToDelivered } from "../controllers/Orders/updateOrderToDelivered.mjs";
 import { updateOrderToPaid } from "../controllers/Orders/updateOrderToPaid.mjs";
-
+import { getOrderStatusCounts } from "../controllers/Orders/getOrdersStatusCounts.mjs";
 const router = Router();
 
 router.post("/", authMiddleWare, createOrder);
 router.get("/myorders", authMiddleWare, getUserOrders);
+router.get("/status-counts", authMiddleWare, getOrderStatusCounts);
 router.get("/:id", authMiddleWare, getSingleOrder);
 router.get("/", authMiddleWare, adminMiddleware, getAllOrders);
 router.put("/:id/deliver",authMiddleWare,adminMiddleware,updateOrderToDelivered);

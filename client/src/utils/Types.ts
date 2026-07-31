@@ -123,7 +123,8 @@ export type FormRowProps<T extends FieldValues> = {
   placeholder? : string,
   defaultValue ? :string,
   disabled? : boolean,
-  type? : string
+  type? : string,
+  onClick? : () =>  void
 };
 export type AuthResponse = {
   msg: string;
@@ -151,7 +152,9 @@ export interface orderItem {
   size : string,
   color : string,
   quantity : number,
-  price : number
+  price : number,
+  image? : string;
+  title? : string;
 }
 export interface orderData {
   orderItems : [orderItem];
@@ -179,6 +182,7 @@ export interface checkoutForm {
   }
 }
 
+
 export interface Profile {
   username : string,
   email : string,
@@ -205,3 +209,54 @@ export interface ResetPassword extends ResetPasswordPayload{
 }
 
 
+export interface OrdersFilters  {
+  status : string;
+}
+
+export type OrderStatusRadioProps = {
+  id: string;
+  name: string;
+  value: string;
+  label: string;
+  count: number;
+  currentStatus: string;
+  onChange: (value: string) => void;
+};
+
+export interface orderDetails {
+  orderNumber :  number;
+  createdAt : string;
+  userId: string;
+    contactInfo : {
+        fullname : string;
+        email : string;
+        phone : string;
+    },
+    orderItems: {
+        type: [orderItem];
+    },
+    shippingAddress: {
+        address: string;
+        city: string;
+        state: string;
+        zipCode : string;
+    },
+    paymentMethod: string;
+    shippingPrice: number;
+    taxPrice: number;
+    totalPrice: number;
+    isPaid: boolean;
+    
+    status: "Pending" | "Shipped" | "Delivered" | "Cancelled";
+    paymentDetails : {
+        paidAt:  Date ;
+        transactionId: string;
+    };
+    deliveredAt: Date;
+}
+
+export type ContactFormData = {
+  name: string;
+  email: string;
+  message: string;
+};

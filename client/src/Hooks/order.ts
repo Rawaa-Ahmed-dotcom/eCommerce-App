@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { orderData } from "../utils/Types";
 import {
+  getOrderStatusCounts,
   handleCreateOrder,
   handleGetAllOrders,
   handleGetOrderDetails,
@@ -11,12 +12,12 @@ import {
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
-export const useCreateOrder = (token: string) => {
+export const useCreateOrder = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: (data: orderData) => handleCreateOrder(data, token),
-    onSuccess: (data) => {
+    mutationFn: (data: orderData) => handleCreateOrder(data),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
 
       Swal.fire({
@@ -26,7 +27,7 @@ export const useCreateOrder = (token: string) => {
         confirmButtonText: "View My Orders",
       }).then((result) => {
         if(result.isConfirmed) {
-            navigate("/profile/orders", {replace : true});
+            navigate("/profile/ordershistory", {replace : true});
         }
       });
 
@@ -36,48 +37,57 @@ export const useCreateOrder = (token: string) => {
   return mutation;
 };
 
-export const useGetAllOrders = (token: string) => {
+export const useGetAllOrders = () => {
   const query = useQuery({
     queryKey: ["orders"],
-    queryFn: () => handleGetAllOrders(token),
+    queryFn:  handleGetAllOrders,
   });
   return query;
 };
 
-export const useGetOrderDetails = (id: string, token: string) => {
+export const useGetOrderDetails = (id: string, ) => {
   const query = useQuery({
     queryKey: ["orders", id],
-    queryFn: () => handleGetOrderDetails(id, token),
+    queryFn: () => handleGetOrderDetails(id),
   });
   return query;
 };
 
-export const useGetUserOrders = (token: string) => {
+export const useGetUserOrders = (status: string) => {
+  const query = useQuery({
+    queryKey: ["orders", status],
+    queryFn: () => handleGetUserOrders(status)
+  });
+  return query;
+};
+
+export const useUpdateOrderToDelivered = ( id: string) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: () => updateOrderToBeDelivered( id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders", id] });
+    },
+  });
+  return mutation;
+};
+
+export const useUpdateOrderToPaid = ( id: string) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: () => updateOrderToPaid( id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders", id] });
+    },
+  });
+  return mutation;
+};
+
+
+export const useStatusCounts = () => {
   const query = useQuery({
     queryKey: ["orders"],
-    queryFn: () => handleGetUserOrders(token),
+    queryFn: getOrderStatusCounts
   });
   return query;
-};
-
-export const useUpdateOrderToDelivered = (token: string, id: string) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: () => updateOrderToBeDelivered(token, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders", id] });
-    },
-  });
-  return mutation;
-};
-
-export const useUpdateOrderToPaid = (token: string, id: string) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: () => updateOrderToPaid(token, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders", id] });
-    },
-  });
-  return mutation;
-};
+}

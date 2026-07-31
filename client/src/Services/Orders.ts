@@ -2,13 +2,9 @@ import  { AxiosError } from "axios";
 import type { ApiErrorResponse, orderData} from "../utils/Types";
 import api from "../api/config";
 
-export const handleCreateOrder = async (data: orderData, token: string) => {
+export const handleCreateOrder = async (data: orderData) => {
   try {
-    const res = await api.post("/orders", data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await api.post("/orders", data);
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -19,11 +15,9 @@ export const handleCreateOrder = async (data: orderData, token: string) => {
   }
 };
 
-export const handleGetAllOrders = async (token: string) => {
+export const handleGetAllOrders = async () => {
   try {
-    const res = await api.get("/orders", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.get("/orders");
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -34,11 +28,9 @@ export const handleGetAllOrders = async (token: string) => {
   }
 };
 
-export const handleGetOrderDetails = async (id: string, token: string) => {
+export const handleGetOrderDetails = async (id: string) => {
   try {
-    const res = await api.get(`/orders/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.get(`/orders/${id}`);
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -49,11 +41,9 @@ export const handleGetOrderDetails = async (id: string, token: string) => {
   }
 };
 
-export const handleGetUserOrders = async (token: string) => {
+export const handleGetUserOrders = async (status : string) => {
   try {
-    const res = await api.get(`/orders/myorders`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.get(`/orders/myorders?status=${status}`);
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -64,11 +54,9 @@ export const handleGetUserOrders = async (token: string) => {
   }
 };
 
-export const updateOrderToBeDelivered = async (token: string, id: string) => {
+export const updateOrderToBeDelivered = async ( id: string) => {
   try {
-    const res = await api.put(`/${id}/deliver`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.put(`/${id}/deliver`);
     return res.data;
   } catch (err) {
     const error = err as AxiosError<ApiErrorResponse>;
@@ -80,13 +68,24 @@ export const updateOrderToBeDelivered = async (token: string, id: string) => {
 };
 
 
-export const updateOrderToPaid = async (token : string , id : string) => {
+export const updateOrderToPaid = async (id : string) => {
   try {
-    const res = await api.put(`/${id}/pay`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await api.put(`/${id}/pay`);
     return res.data;
   } catch (err) {
+    const error = err as AxiosError<ApiErrorResponse>;
+    const errorMessage = error.response?.data?.msg;
+    const fallbackError = error.message || "Unexpected Error!";
+
+    throw new Error(errorMessage || fallbackError, { cause: err });
+  }
+}
+
+export const getOrderStatusCounts = async() => {
+  try {
+    const res = await api.get("/orders/status-counts");
+    return res.data;
+  }catch(err) {
     const error = err as AxiosError<ApiErrorResponse>;
     const errorMessage = error.response?.data?.msg;
     const fallbackError = error.message || "Unexpected Error!";
