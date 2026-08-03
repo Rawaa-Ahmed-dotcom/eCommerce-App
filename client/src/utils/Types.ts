@@ -224,6 +224,7 @@ export type OrderStatusRadioProps = {
 };
 
 export interface orderDetails {
+  _id : string;
   orderNumber :  number;
   createdAt : string;
   userId: string;

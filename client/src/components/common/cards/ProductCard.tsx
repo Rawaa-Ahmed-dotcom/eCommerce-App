@@ -1,10 +1,18 @@
 import { Link } from "react-router";
-import { type ProductInterface, type imageInterface } from "../../../utils/Types";
+import {
+  type ProductInterface,
+  type imageInterface,
+} from "../../../utils/Types";
 
 const ProductCard = ({ product }: { product: ProductInterface }) => {
   const thumbnailImg = product.images.find(
     (img: imageInterface) => img.isPrimary === true,
   );
+
+  const currencyValue =
+    typeof product.currency === "string"
+      ? product.currency
+      : (product.currency?.enum?.[0] ?? "");
 
   return (
     <Link
@@ -30,16 +38,16 @@ const ProductCard = ({ product }: { product: ProductInterface }) => {
         <div className="flex items-center justify-between gap-2 flex-wrap mt-auto">
           {product.salePrice ? (
             <span className="text-[#586062] text-sm md:text-[1em] font-medium line-through">
-              {product.currency} {product.price}
+              {currencyValue} {product.price}
             </span>
           ) : (
             <span className="text-[#416465] text-sm md:text-[1em] font-medium">
-              {product.currency} {product.price}
+              {currencyValue} {product.price}
             </span>
           )}
           {product.salePrice && (
             <span className="text-[#416465] text-sm md:text-[1em] font-semibold">
-              {product.currency} {product.salePrice}
+              {currencyValue} {product.salePrice}
             </span>
           )}
         </div>

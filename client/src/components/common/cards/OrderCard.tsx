@@ -1,7 +1,8 @@
 import { NavLink } from "react-router";
 import { ArrowRight } from "lucide-react";
+import type { orderDetails } from "../../../utils/Types";
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order } : {order : orderDetails}) => {
   
   const formatter = new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -11,7 +12,7 @@ const OrderCard = ({ order }) => {
 
   });
   const createdAtDate = formatter.format(new Date(order.createdAt));
-  
+  console.log(order)
   return (
     <div className="bg-white border border-[#C0C8C7] p-6 rounded-xl">
       <div className="flex justify-between items-start pb-6 border-b border-b-[#C0C8C7] mb-6">

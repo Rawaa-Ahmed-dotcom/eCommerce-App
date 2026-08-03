@@ -9,7 +9,7 @@ import type { CategoryInterface } from "../utils/Types";
 
 
 const Home = () => {
-  const { categories, isLoading, isError, error } = useGetAllCategories();
+  const { categories } = useGetAllCategories();
   return (
     <div className="bg-[#F1FBFF]">
       <HeroBanner />
