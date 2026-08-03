@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: ProductInterface }) => {
   const currencyValue =
     typeof product.currency === "string"
       ? product.currency
-      : (product.currency?.enum?.[0] ?? "");
+      : (product.currency ?? "");
 
   return (
     <Link
