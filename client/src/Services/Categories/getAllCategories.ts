@@ -1,5 +1,5 @@
 import api from "../../api/config";
-import { AxiosError } from "axios";
+import axios from "axios";
 import type{ ApiErrorResponse } from "../../utils/Types";
 export const getAllCategories = async () => {
     try {
@@ -7,10 +7,14 @@ export const getAllCategories = async () => {
         const categories = await res.data
         return categories;
     } catch (err) {
-        const error = err as AxiosError<ApiErrorResponse>;
-            const errorMessage: string = error.response?.data?.msg as string;
-            const fallbackError: string = error.message || "UnExpected Error!";
-        
-            throw new Error(errorMessage || fallbackError, { cause: err });
+      let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
     }
 }

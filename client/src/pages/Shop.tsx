@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useGetAllCategories } from "../Hooks/Categories/useGetCategories";
 import type { CategoryInterface } from "../utils/Types";
 import Select from "react-select";
-import { options } from "../utils/SelectMenu";
-import { customStyles, Menu } from "../utils/SelectMenu.tsx";
+import { Menu } from "../utils/SelectMenu";
+import { options, customStyles } from "../utils/SelectMenu.constants.ts";
 
 import ProductCard from "../components/common/cards/ProductCard.tsx";
 import { type ProductInterface } from "../utils/Types";
@@ -63,8 +63,6 @@ const Shop = () => {
     setSearchParams("");
   };
 
-  // شكل الفلاتر (categories + price) بقى في متغير واحد
-  // عشان نستخدمه في الـ sidebar الثابت (desktop) وفي الـ drawer (mobile) من غير تكرار
   const FiltersContent = (
     <>
       <div>
@@ -135,7 +133,6 @@ const Shop = () => {
     <div className="relative">
       <ScrollSection>
         <main className="w-full flex! gap-[2em] md:gap-[5em] flex-col md:flex-row bg-[#F1FBFF] min-h-fit px-[1em] md:px-[2em] lg:px-[5em] my-[2em] md:my-[5em] py-[2em] md:py-[5em]">
-          {/* زرار الفلاتر بيظهر بس على الموبايل/التابلت */}
           <div className="flex md:hidden items-center justify-between">
             <button
               onClick={() => setShowMobileFilters((prev) => !prev)}
@@ -146,7 +143,6 @@ const Shop = () => {
             </button>
           </div>
 
-          {/* الفلاتر: sidebar ثابت على الشاشات الكبيرة، drawer/panel قابل للطي على الموبايل */}
           <div
             className={`
               ${showMobileFilters ? "flex" : "hidden"} md:flex
@@ -180,7 +176,7 @@ const Shop = () => {
                     options={options}
                     styles={customStyles}
                     components={{ Menu }}
-                    onChange={(e) => dispatch(sortBy(e.value))}
+                    onChange={(e) => dispatch(sortBy(e?.value as string))}
                   />
                 </div>
               </div>

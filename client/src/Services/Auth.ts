@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import type {
   ApiErrorResponse,
   AuthResponse,
@@ -10,33 +10,36 @@ export const handleRegister = async (
   data: RegisterForm,
 ): Promise<AuthResponse> => {
   try {
-    const res = await axios.post<AuthResponse>(
-      "/api/auth/register",
-      data,
-    );
+    const res = await axios.post<AuthResponse>("/api/auth/register", data);
     console.log(res.data);
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const errorMessage: string = error.response?.data?.msg as string;
-    const fallbackError: string = error.message || "UnExpected Error!";
+    let errorMessage = "UnExpected Error!";
 
-    throw new Error(errorMessage || fallbackError, { cause: err });
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 export const handleLogin = async (data: LoginForm): Promise<AuthResponse> => {
   try {
-    const res = await axios.post<AuthResponse>(
-      "/api/auth/login",
-      data,
-    );
+    const res = await axios.post<AuthResponse>("/api/auth/login", data);
 
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const errorMessage = error.response?.data?.msg;
-    const fallbackErrorMsg = error?.message || "UnExpected Error!";
-    throw new Error(errorMessage || fallbackErrorMsg, { cause: err });
+    let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 
@@ -47,9 +50,14 @@ export const handleLogout = async () => {
     localStorage.removeItem("accessToken");
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const errorMessage = error.response?.data?.msg;
-    const fallbackError = error?.message || "Unexpected Error|";
-    throw new Error(errorMessage || fallbackError, { cause: err });
+     let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };

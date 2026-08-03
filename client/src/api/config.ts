@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { logoutUser, setCredentials } from "../store/features/userSlice";
 import { store } from "../store/index.ts";
 
@@ -10,10 +10,10 @@ const api = axios.create({
 let isRefreshing = false;
 let failedQueue: Array<{
   resolve: (token: string) => void;
-  reject: (error: any) => void;
+  reject: (error: unknown) => void;
 }> = [];
 
-const processQueue = (error: any, token: string | null = null) => {
+const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
@@ -34,16 +34,12 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  async (error: AxiosError) => {
     const originalRequest = error.config;
 
-    // if (originalRequest.url?.includes("/auth/refresh")) {
-    //   return Promise.reject(error);
-    // }
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && originalRequest && !(originalRequest as unknown as { _retry?: boolean })._retry) {
       if (isRefreshing) {
-        return new Promise((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
@@ -54,12 +50,12 @@ api.interceptors.response.use(
       }
 
       isRefreshing = true;
-      originalRequest._retry = true;
+      (originalRequest as unknown as { _retry?: boolean })._retry = true;
 
       try {
         const refresh = await axios.get(
           "/api/auth/refresh",
-          {withCredentials : true}
+          { withCredentials: true }
         );
 
         const newAccessToken = refresh.data.accessToken;
@@ -75,7 +71,10 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        console.log(refreshError.response?.status, refreshError.response?.data);
+        
+        const err = refreshError as AxiosError;
+        console.log(err.response?.status, err.response?.data);
+
         store.dispatch(logoutUser());
         window.location.href = "/auth/login";
         return Promise.reject(refreshError);

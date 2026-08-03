@@ -1,4 +1,4 @@
-import type { AxiosError } from "axios";
+import axios from "axios";
 import api from "../api/config";
 import type {
   ApiErrorResponse,
@@ -11,11 +11,15 @@ export const uploadProfileImage = async (formData: FormData) => {
     const res = await api.patch("/auth/profile-picture", formData);
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const serverMessage = error.response?.data?.msg;
-    const FallbackError = error.message;
-    console.log(serverMessage);
-    throw new Error(serverMessage || FallbackError, { cause: err });
+    let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 
@@ -24,10 +28,15 @@ export const getProfile = async () => {
     const res = await api.get("/auth/profile");
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const serverMessage = error.response?.data?.msg;
-    const fallbackMessage = error.message;
-    throw new Error(serverMessage || fallbackMessage, { cause: err });
+    let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 
@@ -36,10 +45,15 @@ export const updateProfile = async (personalInfo: PersonalForm) => {
     const res = await api.patch("/auth/profile", personalInfo);
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const serverMessage = error.response?.data?.msg;
-    const fallbackMessage = error.message;
-    throw new Error(serverMessage || fallbackMessage, { cause: err });
+    let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 
@@ -48,10 +62,15 @@ export const changePassword = async (data: ResetPasswordPayload) => {
     const res = await api.patch("/auth/change-password", data);
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const serverMessage = error.response?.data?.msg;
-    const fallbackMessage = error.message;
-    throw new Error(serverMessage || fallbackMessage, { cause: err });
+    let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
 
@@ -60,9 +79,14 @@ export const deleteAccount = async () => {
     const res = await api.delete("/auth/profile");
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const serverMessage = error.response?.data?.msg;
-    const fallbackMessage = error.message;
-    throw new Error(serverMessage || fallbackMessage, { cause: err });
+     let errorMessage = "UnExpected Error!";
+
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };

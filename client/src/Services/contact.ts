@@ -1,6 +1,6 @@
 import api from "../api/config";
 import type { ContactFormData, ApiErrorResponse } from "../utils/Types";
-import { AxiosError } from "axios";
+import axios from "axios";
 
 
 export const createMessage = async (data : ContactFormData) => {
@@ -8,10 +8,14 @@ export const createMessage = async (data : ContactFormData) => {
     const res = await api.post("/contact" , data);
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<ApiErrorResponse>;
-    const errorMessage = error.response?.data?.msg;
-    const fallbackError = error.message || "Unexpected Error!";
+    let errorMessage = "UnExpected Error!";
 
-    throw new Error(errorMessage || fallbackError, { cause: err });
+    if (axios.isAxiosError<ApiErrorResponse>(err)) {
+      errorMessage = err.response?.data?.msg || err.message || errorMessage;
+    } else if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+
+    throw new Error(errorMessage, { cause: err });
   }
 };
