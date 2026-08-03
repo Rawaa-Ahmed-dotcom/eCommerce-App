@@ -1,6 +1,6 @@
 import { useParams } from "react-router"
 import { useGetOrderDetails } from "../Hooks/order";
-import type{ orderDetails } from "../utils/Types";
+import type{ orderDetails, orderItem } from "../utils/Types";
 
 const statusStyles: Record<string, string> = {
   pending: "bg-[#B2D8D8]/40 text-[#414848] border border-[#414848]/20",
@@ -91,9 +91,9 @@ const OrderDetails = () => {
               </div>
  
               <div className="divide-y divide-[#414848]/10">
-                {order.orderItems?.map((item) => (
+                {order.orderItems?.map((item : orderItem) => (
                   <div
-                    key={item._id}
+                    key={item.product}
                     className="flex items-center gap-4 px-5 py-4"
                   >
                     <img

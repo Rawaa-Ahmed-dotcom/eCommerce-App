@@ -8,6 +8,7 @@ import OrderCard from "../components/common/cards/OrderCard";
 import ErrorState from "../components/feedback/ErrorState";
 import OrderCardSkeleton from "../components/common/skeletons/OrderSkeleton";
 import { SlidersHorizontal, X } from "lucide-react";
+import type {  orderDetails } from "../utils/Types";
 
 const OrdersHistory = () => {
   const { status } = useAppSelector((state) => state.ordersFilter);
@@ -83,7 +84,6 @@ const OrdersHistory = () => {
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6 p-3 sm:p-4 md:p-6">
-      {/* زرار الفلاتر بيظهر بس على الموبايل/التابلت */}
       <div className="flex lg:hidden items-center justify-between">
         <button
           onClick={() => setShowMobileFilters((prev) => !prev)}
@@ -94,10 +94,16 @@ const OrdersHistory = () => {
         </button>
       </div>
 
-      {/* الفلاتر: sidebar ثابت على الشاشات الكبيرة، panel قابل للطي على الموبايل */}
+      {showMobileFilters && (
+        <div
+          onClick={() => setShowMobileFilters(false)}
+          className="fixed inset-0 bg-black/30 z-10 lg:hidden"
+        />
+      )}
+
       <div
         className={`
-          ${showMobileFilters ? "flex" : "hidden"} lg:flex
+          ${showMobileFilters ? "flex z-20" : "hidden"} lg:flex
           flex-col border border-[#C0C8C7] bg-white rounded-xl p-4 sm:p-6 lg:col-span-1 relative
         `}
       >
@@ -116,8 +122,12 @@ const OrdersHistory = () => {
 
       <div className="lg:col-span-4 w-full">
         {isError ? (
-          <ErrorState message={error.message} />
-        ) : filteredOrders?.data.length === 0 ? (
+          <ErrorState message={(error as Error)?.message || "An error occurred"} />
+        ) : isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-3.5">
+            <OrderCardSkeleton count={6} />
+          </div>
+        ) : !filteredOrders?.data || filteredOrders.data.length === 0 ? (
           <div className="flex items-center justify-center w-full h-full py-10">
             <EmptyState
               handleResetFilters={handleResetFilters}
@@ -126,14 +136,9 @@ const OrdersHistory = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-3.5">
-            {isLoading ? (
-              <OrderCardSkeleton count={filteredOrders?.count as number} />
-            ) : (
-              filteredOrders?.data.length > 0 &&
-              filteredOrders?.data?.map((order) => {
-                return <OrderCard order={order} key={order._id ?? order.id} />;
-              })
-            )}
+            {filteredOrders.data.map((order : orderDetails) => (
+              <OrderCard order={order} key={order._id } />
+            ))}
           </div>
         )}
       </div>

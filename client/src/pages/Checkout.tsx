@@ -23,7 +23,7 @@ const Checkout = () => {
     0,
   );
   const tax = subTotal * 0.14;
-  const token = localStorage.getItem("accessToken");
+ 
   const validatedOrderItems: orderItem[] = cartItems.map((item) => ({
     product: item.slug,
     size: item.size,
@@ -31,7 +31,7 @@ const Checkout = () => {
     quantity: item.quantity,
     price: item.price,
   }));
-  const orderMutation = useCreateOrder(token as string);
+  const orderMutation = useCreateOrder();
 
   const submit = (data: checkoutForm) => {
     orderMutation.mutate({

@@ -47,14 +47,10 @@ export interface ProductInterface {
   category: string;
   price: number;
   salePrice?: number;
-  currency?: {
-    type: string;
-    enum: ["EGP", "USD", "EUR", "SAR"];
-  };
-  gender: {
-    type: string;
-    enum: ["men", "women", "unisex", "kids"];
-  };
+  currency?: "EGP" | "USD" | "EUR" | "SAR";
+  
+  gender: "men" |  "women" | "unisex" | "kids";
+  
   material: string;
   care_instructions: string;
   fit_type: string;
@@ -67,10 +63,9 @@ export interface ProductInterface {
   };
   tags?: string[];
   isFeatured?: boolean;
-  status?: {
-    type: string;
-    enum: ["active", "draft", "archived"];
-  };
+  status?: "active" | "draft" | "archived";
+   
+    
 }
 
 export interface ProductParams {
@@ -157,7 +152,7 @@ export interface orderItem {
   title? : string;
 }
 export interface orderData {
-  orderItems : [orderItem];
+  orderItems : orderItem[];
 
   personalInfo : checkoutForm
 }
@@ -233,9 +228,7 @@ export interface orderDetails {
         email : string;
         phone : string;
     },
-    orderItems: {
-        type: [orderItem];
-    },
+    orderItems: orderItem[];
     shippingAddress: {
         address: string;
         city: string;
