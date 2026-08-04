@@ -2,8 +2,10 @@ import axios, { AxiosError } from "axios";
 import { logoutUser, setCredentials } from "../store/features/userSlice";
 import { store } from "../store/index.ts";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://e-commerce-app-iroy.vercel.app/api";
+
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
@@ -25,7 +27,7 @@ const processQueue = (error: unknown, token: string | null = null) => {
 };
 
 api.interceptors.request.use((config) => {
-  const token = store.getState().authState?.token; 
+  const token = store.getState().authState?.token;
   if (token) {
     config.headers.set("Authorization", `Bearer ${token}`);
   }
@@ -37,7 +39,11 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && originalRequest && !(originalRequest as unknown as { _retry?: boolean })._retry) {
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !(originalRequest as unknown as { _retry?: boolean })._retry
+    ) {
       if (isRefreshing) {
         return new Promise<string>((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -53,10 +59,9 @@ api.interceptors.response.use(
       (originalRequest as unknown as { _retry?: boolean })._retry = true;
 
       try {
-        const refresh = await axios.get(
-          "/api/auth/refresh",
-          { withCredentials: true }
-        );
+        const refresh = await axios.get(`${BASE_URL}/auth/refresh`, {
+          withCredentials: true,
+        });
 
         const newAccessToken = refresh.data.accessToken;
         const user = refresh.data.user;
@@ -71,7 +76,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        
+
         const err = refreshError as AxiosError;
         console.log(err.response?.status, err.response?.data);
 
