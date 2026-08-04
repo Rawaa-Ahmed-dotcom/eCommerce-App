@@ -23,8 +23,8 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 };
 
+// Middlewares الأساسية
 app.use(cors(corsOptions));
-
 app.use(express.json());
 app.set("query parser", (str) => QueryString.parse(str));
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +38,13 @@ app.use(async (req, res, next) => {
     console.error("Database connection error:", error);
     res.status(500).json({ error: "Database Connection Failed", details: error.message });
   }
+});
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "E-Commerce API is running smoothly!"
+  });
 });
 
 app.use(router);
