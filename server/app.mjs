@@ -10,10 +10,19 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-    origin : ["http://localhost:5173" , "https://e-commerce-app-ten-kohl.vercel.app/"],
-    credentials : true
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://e-commerce-app-ten-kohl.vercel.app" 
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+  })
+);
 app.use(express.json());
 app.set('query parser', (str) => QueryString.parse(str));
 app.use(express.urlencoded({ extended: true }));
@@ -27,3 +36,4 @@ app.listen(process.env.PORT,(req,res) => {
 })
 
 
+export default app;
