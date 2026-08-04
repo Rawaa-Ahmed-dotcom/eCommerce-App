@@ -1,10 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { connectDB } from "./src/config/db.mjs";
-import router from "./src/Routers/index.mjs";
 import QueryString from "qs";
 import cookieParser from "cookie-parser";
+
+import { connectDB } from "./src/config/db.mjs";
+import router from "./src/Routers/index.mjs";
 
 dotenv.config();
 
@@ -23,7 +24,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
@@ -31,13 +31,26 @@ app.set("query parser", (str) => QueryString.parse(str));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection middleware error:", error.message);
+    res.status(500).json({ 
+      message: "Database connection failed", 
+      error: error.message 
+    });
+  }
+});
+
 app.use(router);
 
-connectDB();
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 export default app;
