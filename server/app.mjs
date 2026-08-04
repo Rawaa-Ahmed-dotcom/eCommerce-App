@@ -24,7 +24,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.set("query parser", (str) => QueryString.parse(str));
@@ -36,15 +35,20 @@ app.use(async (req, res, next) => {
     await connectDB();
     next();
   } catch (error) {
-    console.error("Database connection middleware error:", error.message);
-    res.status(500).json({ 
-      message: "Database connection failed", 
-      error: error.message 
-    });
+    console.error("Database connection error:", error);
+    res.status(500).json({ error: "Database Connection Failed", details: error.message });
   }
 });
 
 app.use(router);
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err);
+  res.status(500).json({
+    error: "Internal Server Error",
+    message: err.message
+  });
+});
 
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
