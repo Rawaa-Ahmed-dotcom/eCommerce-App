@@ -16,6 +16,7 @@ A full-stack e-commerce web application built with **React + TypeScript** on the
 - [API Reference](#-api-reference)
 - [Data Models](#-data-models)
 - [Deployment](#-deployment)
+- [Roadmap](#-roadmap)
 
 ---
 
@@ -29,10 +30,12 @@ A full-stack e-commerce web application built with **React + TypeScript** on the
 - User registration, login, and profile management (with profile picture upload)
 - Contact / support message form
 
-### For admins
+### Admin capabilities (API-level)
 - Role-based access control (`user` / `admin`)
-- Create, update, and delete products and categories (with image upload via Cloudinary)
-- View all orders, order status counters, and update payment/delivery status
+- Endpoints to create, update, and delete products and categories (with image upload via Cloudinary)
+- Endpoints to view all orders, order status counters, and update payment/delivery status
+
+> ⚠️ These are currently backend endpoints only — there is **no admin dashboard UI** yet. See [Roadmap](#-roadmap) below.
 
 ### Platform
 - JWT-based authentication with short-lived access tokens and automatic refresh via HTTP-only cookies
@@ -243,6 +246,13 @@ Both the client and server are deployed on **Vercel**:
 - **Backend:** Express app deployed as a Vercel serverless function (see `server/vercel.json`)
 
 CORS on the server allows `localhost:5173` for local development and any `*.vercel.app` origin for previews/production.
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] **Admin Dashboard UI** — a dedicated frontend for admins to manage products, categories, and orders using the existing admin API endpoints
+- [ ] Enforce `adminMiddleware` consistently on all product/category write routes
 
 ---
 
